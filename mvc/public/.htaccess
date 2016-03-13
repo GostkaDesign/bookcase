@@ -1,4 +1,4 @@
-Options -Indexes
+Options -Multiviews
 RewriteEngine On
 
 RewriteBase /GitKraken/projets/bookcase/mvc/public
