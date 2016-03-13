@@ -1,26 +1,26 @@
 **BookCase**
+============
 
 **C'est quoi ?**
-
+________________
 bookcase - Gestionnaire de bibliotheque literaire
 
 
 
 **Ca sert à quoi ?**
-
+____________________
 Permet de chercher des livres et de les classer
 
 
 
 **Pour qui ?**
-==============
-
+______________
 Les gens qui aiment lire et qui aimerai gérer leur bibliotheque personnel
 
 
 
 **Les moyens de rechercher des livre**
-======================================
+______________________________________
 
 # isbn
 # code barre
@@ -33,7 +33,7 @@ Les gens qui aiment lire et qui aimerai gérer leur bibliotheque personnel
 
 
 **Technologie**
-===============
+_______________
 
 # php
 # javascript
@@ -43,14 +43,14 @@ Les gens qui aiment lire et qui aimerai gérer leur bibliotheque personnel
 
 
 **Support**
-===========
+___________
 
 Web + app mobil
 
 
 
 **Affichage**
-=============
+_____________
 
 3 Familles principale :
 # Les livres lu
@@ -69,7 +69,7 @@ Classement
 
 
 **Notes :**
-===========
+___________
 
 # Chargement de page
 # Petit fichier discret appelé à distance pour trouver le nombre d'utilisateur
@@ -85,7 +85,7 @@ Classement
 
 
 ***ROADMAP**
-============
+____________
 
 ________
 
