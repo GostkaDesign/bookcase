@@ -5,10 +5,11 @@
 class Profile  extends Controller
 {
 	
-	public function Profile($userName = '')
-	{
-		echo $userName;
-	}
+	// public function Profile($name = '')
+	// {
+	// 	echo $name;
+	// 	// echo 'ttu';
+	// }
 
 	
 }

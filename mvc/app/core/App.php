@@ -33,7 +33,7 @@ class App
 				unset($url[1]);
 			}
 		}
-		var_dump($url);
+		// var_dump($url);
 		$this->params = $url ? array_values($url) : [];
 
 		call_user_func_array([$this->controller, $this->method], $this->params);
