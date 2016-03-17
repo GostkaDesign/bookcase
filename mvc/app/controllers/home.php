@@ -13,10 +13,5 @@ class Home  extends Controller
 		// on cré la vu
 		$this->view('home/index', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
 	}
-
-	public function test()
-	{
-		echo 'page test';
-	}
 }
 ?>

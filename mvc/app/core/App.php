@@ -13,13 +13,16 @@ class App
 	{
 		
 		$url = $this->parseUrl();
-
+		// echo "TEST si le fichier existe'../app/controllers/'" . $url[0] . "'.php'<br>";
 		if (file_exists('../app/controllers/' . $url[0] . '.php'))
 		{
 			$this->controller = $url[0];
 			unset($url[0]);
+			// echo 'le fichier existe<br>';
 		}
 
+		// echo 'DANS : APP/CORE/App.php<br>';
+		// echo "require '../app/controllers/'" . $this->controller . "'.php'<hr>";
 		require_once '../app/controllers/' . $this->controller . '.php';
 
 		$this->controller = new $this->controller;
