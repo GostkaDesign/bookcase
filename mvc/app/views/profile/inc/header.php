@@ -1,3 +1,11 @@
+<?php
+require ('functions.php');
+if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -12,7 +20,7 @@
     <title>BookCase</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/themes/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/themes/yeti/bootstrap.min.css" rel="stylesheet">
 
   </head>
   
@@ -31,10 +39,37 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index">Index</a></li>
-            <li class="active"><a href="register">Register</a></li>
-            <li><a href="login">login</a></li>
+
+            <li><a href="../index/">Index</a></li>
+            
+            <?php if (isset($_SESSION['auth'])): ?>
+
+              <li><a href="../logout/">Logout</a></li>
+
+            <?php else: ?>         
+
+            <li class="active"><a href="../register/">Register</a></li>
+
+            <li><a href="../login/">login</a></li>
+
+          <?php endif; ?>
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+
+    <?php if (isset($_SESSION['flash'])): ?>
+        <?php foreach ($_SESSION['flash'] as $type => $message): ?>
+
+        <div class="alert alert-<?= $type; ?>">
+          
+          <?= $message; ?>
+
+        </div>          
+        
+        <?php endforeach; ?>
+
+        <?php unset($_SESSION['flash']); ?>
+
+    <?php endif; ?>

@@ -93,3 +93,15 @@ ________________________________________________________________
 > **V0.2**
 > 
 > Recherche possible via champs
+
+### Feature
+
+#### User Account
+
+	- Création de compte utilisateur possible public/profil/register
+	- Envoie d'un email de confirmation par token
+	- Mise a jou de la BDD quand l'email est validé
+	- Connection au compte après validation
+	- Création de la page de confirmation d'email public/profil/confirm
+	- Page de profile de l'utilisateur public/profil/account
+	- Mise en place de la session et de messages $_SESSION['flash']
