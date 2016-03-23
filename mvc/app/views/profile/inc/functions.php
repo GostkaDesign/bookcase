@@ -1,5 +1,5 @@
 <?php
-
+echo 'function.php';
 function debug ($variable){
 	if (!isset($variable)){
 		echo "<pre> Aucune variable à débuguer n'est défini</pre>";
@@ -17,11 +17,13 @@ function str_random($lenght){
 }
 
 function is_connected(){
+	var_dump($_SESSION);
+	
+	
 
 	if (!isset($_SESSION['auth'])) {
 		
-		// $_SESSION['fash']['danger'] = "Acces denied. You must be loged."
-
+		$_SESSION['flash']['danger'] = "Acces denied. You must be loged.";
 		//Redirection vers la page profile
       	header('location:../login/');
 

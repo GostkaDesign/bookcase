@@ -71,6 +71,17 @@ class Profile  extends Controller
 		$this->view('profile/logout', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
 	}
 
+	public function Password_remember($name = '')
+	{
+
+		// echo "PAGE Logout <br>";
+		$user = $this->model('User');	// on defini le model
+		$user->name = $name; // on le set
+		// var_dump($user);
+		// on cré la vu
+		$this->view('profile/password_remember', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
+	}
+
 	
 }
 ?>

@@ -4,7 +4,6 @@
       <h1>Connectez vous</h1>
 		
 		<?php
-
 		if (!empty($_POST) &&  !empty($_POST['username']) && !empty($_POST['password'])) {
 
 			require_once 'inc/db.php';
@@ -27,13 +26,12 @@
 		      	header('location:../account/'.$user->username);
 
 		      	exit ();
+
 			} else {
 
 				$_SESSION['flash']['danger'] = "Bad login or password";
 				
 			}
-			
-
 
 		}
 
@@ -52,6 +50,10 @@
 			</div>
 
 			<button type="submit" class="btn btn-primary">Connect</button>
+
+			<br>
+			<br>
+			<a href="../password_remember/">I forgot my password</a>
 
       	</form>
 		
