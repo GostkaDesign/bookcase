@@ -43,8 +43,8 @@ if (session_status() == PHP_SESSION_NONE) {
             <li><a href="../index/">Index</a></li>
             
             <?php if (isset($_SESSION['auth'])): ?>
-
-              <li><a href="../logout/">Logout</a></li>
+              <li><a href='../account/<?= $_SESSION['auth']->username; ?>'>My account</a></li>
+              <li><a href="../logout/">Logged as <b><?= $_SESSION['auth']->username; ?></b> Logout</a></li>
 
             <?php else: ?>         
 

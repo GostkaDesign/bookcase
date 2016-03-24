@@ -81,6 +81,16 @@ class Profile  extends Controller
 		// on cré la vu
 		$this->view('profile/password_remember', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
 	}
+	public function Password_reset($name = '')
+	{
+
+		// echo "PAGE Logout <br>";
+		$user = $this->model('User');	// on defini le model
+		$user->name = $name; // on le set
+		// var_dump($user);
+		// on cré la vu
+		$this->view('profile/password_reset', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
+	}
 
 	
 }

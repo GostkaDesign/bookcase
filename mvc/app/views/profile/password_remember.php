@@ -28,7 +28,7 @@
 		      	$to = $_POST['email'];
 		        $object = 'Reinitialisation de votre mot de passe BOOKCASE';
 		        $message = "<b>Afin de reinitialise votre mot de passe BOOKCASE merci de cliquer sur ce lien : </b>\n\n\r\r
-		        http://localhost/gitkraken/projets/bookcase/mvc/public/profile/password_remember/?id={$user->id}&token=" . $reset_token;
+		        http://localhost/gitkraken/projets/bookcase/mvc/public/profile/password_reset/?id={$user->id}&token=" . $reset_token;
 		         
 		        $headers  = 'From: Bookcase - votre gestionnaire de livre en ligne'."\r\n";
 		        $headers .= 'Reply-To: gostka@free.fr'."\r\n";

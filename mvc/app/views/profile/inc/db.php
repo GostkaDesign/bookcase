@@ -1,5 +1,5 @@
 <?php
-
+echo '<br>db.php <span class="label label-success">loaded</span>';
 try {
 		$bdd_name = 	'bookcase';
 		$bdd_host = 	'localhost';

@@ -26,6 +26,7 @@
 	}
 
 ?>
+	<div style="font-size:10px;"><?php var_dump($_SESSION); ?></div>
     <div class="container">
       <h1>Votre compte</h1>
       <p>Bonjour <b><?= $_SESSION['auth']->username ; ?></b></p>
