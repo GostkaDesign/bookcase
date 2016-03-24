@@ -21,7 +21,7 @@ function str_random($lenght){
 }
 
 function is_connected(){
-	// var_dump($_SESSION);
+	
 	if (!isset($_SESSION['auth'])) {
 		
 		$_SESSION['flash']['danger'] = "Acces denied. You must be loged.";
@@ -90,6 +90,6 @@ function reconnect_from_cookie(){
 }
 
 
-echo '<br>function.php <span class="label label-success">loaded</span>';
+// echo '<br>function.php <span class="label label-success">loaded</span>';
 
 ?>

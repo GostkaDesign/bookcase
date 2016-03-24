@@ -2,6 +2,7 @@
 require ('functions.php');
 if (session_status() == PHP_SESSION_NONE) {
       session_start();
+      // echo('<br><br><div><span class="label label-success">SESSION START</span></div><br>');
     }
 
 ?>
@@ -44,7 +45,7 @@ if (session_status() == PHP_SESSION_NONE) {
             
             <?php if (isset($_SESSION['auth'])): ?>
               <li><a href='../account/<?= $_SESSION['auth']->username; ?>'>My account</a></li>
-              <li><a href="../logout/">Logged as <b><?= $_SESSION['auth']->username; ?></b> Logout</a></li>
+              <li><a href="../login/?logout">Logged as <b><?= $_SESSION['auth']->username; ?></b> Logout</a></li>
 
             <?php else: ?>         
 

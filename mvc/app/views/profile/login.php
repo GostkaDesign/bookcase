@@ -1,7 +1,30 @@
 <?php include_once 'inc/header.php'; ?>
 
 <?php
-	
+	if (isset($_GET['logout'])) {
+		
+
+		setcookie('remember', NULL, -1);
+
+		if (isset($_COOKIE['remember'])) {
+
+		var_dump($_COOKIE['remember']);
+
+		}else {
+
+			echo 'pas de _COOKIE';
+
+		}
+			unset($_SESSION['auth']);
+
+			$_SESSION['flash']['success'] = "Vous êtes maintenant déconnecté";
+
+			header('location:../login/');
+			
+			exit();
+	}
+
+
 	reconnect_from_cookie();
 
 	if (isset($_SESSION['auth'])) {
@@ -13,6 +36,7 @@
 		}
 
 ?>
+
 
     <div class="container">
       <h1>Connectez vous</h1>
@@ -28,7 +52,7 @@
 
 			$user = $req->fetch();
 
-			if ($user && password_verify($_POST['password'], $user->password) && $user) {
+			if (password_verify($_POST['password'], $user->password) && $user) {
 				
 				// On stock l'utilisateur dans la variable session
 		      	$_SESSION['auth'] = $user;
@@ -36,7 +60,7 @@
 		      	$_SESSION['flash']['success'] = "Auth success !";
 
 		      	//Verification si la case "se rappeler" de moi est cochée
-		      	if ($_POST['remember']) {
+		      	if (isset($_POST['remember'])) {
 		      		
 		      		// voir plus securise
 		      		$remember_token = str_random(250);
@@ -46,10 +70,10 @@
 
 		      		// cookie qui tiendra 7 jours
 		      		setcookie('remember', $user->id . '==' . $remember_token . sha1($user->id . 'BookCase'), time() + 60 * 60 * 24 * 7);
+
 		      	}
-		      	
 		      	//Redirection vers la page profile
-		      	header('location:../account/'.$user->username);
+		      	header('location:../account/');
 
 		      	exit ();
 

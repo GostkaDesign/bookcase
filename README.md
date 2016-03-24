@@ -2,7 +2,7 @@
 
 ### C'est quoi ?
 
-bookcase - Gestionnaire de bibliotheque literaire
+bookcase - Gestionnaire de bibliotheque litteraire
 
 ________________________________________________________________
 
@@ -96,7 +96,7 @@ ________________________________________________________________
 
 ### Feature
 
-#### User Account
+#### User Account v0.0.2
 
 	- Création de compte utilisateur possible public/profil/register
 	- Envoie d'un email de confirmation par token
