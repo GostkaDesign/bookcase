@@ -13,13 +13,14 @@ class Controller
 	}
 	//Traitement
 
-	// Appel de la vue correxpondante
+	// Appel de la vue correspondante
 	public function view($view, $data = [])
 	{
 		// echo 'DANS : APP/CORE/Controller.php<br>';
 		// echo "require '../app/views/'" . $view . "'.php'<hr>";
 		require_once '../app/views/' . $view . '.php';
 	}
+
 }
 
 

@@ -1,5 +1,18 @@
 <?php include_once 'inc/header.php'; ?>  
 
+
+<?php 
+  
+  $db = GlobalApp::getDatabase();
+
+  $user = $db->query('SELECT * FROM users')->fetchAll();
+
+  debug($user);
+
+  die();
+  
+?>
+
 <?php
     if (!empty($_POST)) { 
       
