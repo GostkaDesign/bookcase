@@ -34,6 +34,8 @@ class App
 				// echo 'ok le fichier existe vraiment';
 				$this->method = $url[1];
 				unset($url[1]);
+			}else {
+				echo 'CETTE METHODE NEXISTE PAS';
 			}
 		}
 		// var_dump($url);

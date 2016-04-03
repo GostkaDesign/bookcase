@@ -2,94 +2,115 @@
 /**
 * 
 */
-class Profile  extends Controller
-{
+class Profile extends Controller {
 	
-	public function Index($name = '')
-	{
-		// echo $name;
-		$user = $this->model('User');	// on defini le model
-		$user->name = $name; // on le set
-		// on cré la vu
-		$this->view('profile/index', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
+	public function Index($name = ''){
+		
+		// Définition du modèle à utiliser
+		$user = $this->model('Profile_model');
+
+		// On set la variable
+		$user->name = $name;
+
+		// Définition de la vue à utiliser
+		$this->view('profile/index', ['name' => $user->name]);
 
 	}
 
-	public function Login($name = '')
-	{
-		// echo "PAGE Login <br>";
-		// echo $name;
-		$user = $this->model('User');	// on defini le model
-		$user->name = $name; // on le set
-		// on cré la vu
-		$this->view('profile/login', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
+	public function Login($name = ''){
+		
+		// Définition du modèle à utiliser
+		$user = $this->model('Profile_model');
+
+		// On set la variable
+		$user->name = $name;
+
+		// Définition de la vue à utiliser
+		$this->view('profile/login', ['name' => $user->name]);
 
 	}
 
-	public function Register($name = '')
-	{
-
-		// echo "PAGE Register <br>";
-		$user = $this->model('User');	// on defini le model
-		$user->name = $name; // on le set
+	public function Register($name = ''){
+		
+		// Définition du modèle à utiliser
+		$user = $this->model('Profile_model');
+		
+		// On set la variable
+		$user->name = $name;
 		var_dump($user);
-		// on cré la vu
-		$this->view('profile/register', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
+
+		// Définition de la vue à utiliser
+		$this->view('profile/register', ['name' => $user->name]);
+
+		// Définition du layout à utiliser
+		// $this->layout('test');
 	}
 
 
-	public function Confirm($name = '')
-	{
+	public function Confirm($name = ''){
+		
+		// Définition du modèle à utiliser
+		$user = $this->model('Profile_model');
 
-		// echo "PAGE Confirm <br>";
-		$user = $this->model('User');	// on defini le model
-		$user->name = $name; // on le set
+		// On set la variable
+		$user->name = $name;
 		var_dump($user);
-		// on cré la vu
-		$this->view('profile/confirm', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
+
+		// Définition de la vue à utiliser
+		$this->view('profile/confirm', ['name' => $user->name]);
 	}
 
-	public function Account($name = '')
-	{
 
-		// echo "PAGE Account <br>";
-		$user = $this->model('User');	// on defini le model
-		$user->name = $name; // on le set
+	public function Account($name = ''){
+		
+		// Définition du modèle à utiliser
+		$user = $this->model('Profile_model');
+
+		// On set la variable
+		$user->name = $name;
 		var_dump($user);
-		// on cré la vu
-		$this->view('profile/account', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
+
+		// Définition de la vue à utiliser
+		$this->view('profile/account', ['name' => $user->name]);
 	}
 
-	public function Logout($name = '')
-	{
 
-		// echo "PAGE Logout <br>";
-		$user = $this->model('User');	// on defini le model
-		$user->name = $name; // on le set
-		// var_dump($user);
-		// on cré la vu
-		$this->view('profile/logout', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
+	public function Logout($name = ''){
+		
+		// Définition du modèle à utiliser
+		$user = $this->model('Profile_model');
+
+		// On set la variable
+		$user->name = $name;
+
+		// Définition de la vue à utiliser
+		$this->view('profile/logout', ['name' => $user->name]);
 	}
 
-	public function Password_remember($name = '')
-	{
 
-		// echo "PAGE Logout <br>";
-		$user = $this->model('User');	// on defini le model
-		$user->name = $name; // on le set
-		// var_dump($user);
-		// on cré la vu
-		$this->view('profile/password_remember', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
+	public function Password_remember($name = ''){
+		
+		// Définition du modèle à utiliser
+		$user = $this->model('Profile_model');
+
+		// On set la variable
+		$user->name = $name;
+
+		// Définition de la vue à utiliser
+		$this->view('profile/password_remember', ['name' => $user->name]);
 	}
-	public function Password_reset($name = '')
-	{
 
-		// echo "PAGE Logout <br>";
-		$user = $this->model('User');	// on defini le model
-		$user->name = $name; // on le set
-		// var_dump($user);
-		// on cré la vu
-		$this->view('profile/password_reset', ['name' => $user->name]); // pas de lien avec l'url mais avec l'architexture des fichier
+
+	public function Password_reset($name = ''){
+		
+		// Définition du modèle à utiliser
+		$user = $this->model('Profile_model');
+
+		// On set la variable
+		$user->name = $name;
+
+		// Définition de la vue à utiliser
+		$this->view('profile/password_reset', ['name' => $user->name]);
 	}
 
 	

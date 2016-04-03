@@ -2,17 +2,20 @@
 /**
 * 
 */
-class Contact  extends Controller
-{
+class Contact  extends Controller{
 	
-	public function index()
-	{
+	public function index(){
+
 		echo "contact/index";
+
 	}
 
-	public function phone()
-	{
+	public function phone(){
+
 		echo 'page contact/phone';
+
 	}
+
 }
+
 ?>

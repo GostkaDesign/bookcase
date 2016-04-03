@@ -1,80 +1,42 @@
 <?php include_once 'inc/header.php'; ?>  
-
-
-<?php 
   
-  $db = GlobalApp::getDatabase();
-
-  $user = $db->query('SELECT * FROM users')->fetchAll();
-
-  debug($user);
-
-  die();
-  
-?>
-
 <?php
     if (!empty($_POST)) { 
       
 
       $errors = array();
 
-      // connexion à la BDD
-      require_once 'inc/db.php';
+      // On se connecte à la BDD
+      $db = GlobalApp::getDatabase();
+
+      $validator = new Validator($_POST);
 
       // Check si le pseudo est définit et valide
-      if (empty($_POST['username']) || !preg_match('/^[a-zA-Z0-9_-]+$/', $_POST['username'])) {
-        
-        $errors['username'] = "Vous n'est pas valide (alphanumerique)'";
+      $validator->isAlpha('username', "Your username is not valid ( only special caractered '_' and '-' are available )");
 
-      } else {
-
-        $req = $pdo->prepare(' SELECT id FROM users WHERE username =?');
-
-        $req->execute([$_POST['username']]);
-
-        $user = $req->fetch();
-
-        if ($user) {
-          
-          $errors ['username'] = 'Ce pseudo est déjà pris';
-
-        }
-
+      if ($validator->isvalid()) {
+    
+        // Check si le pseudo est libre
+        $validator->isUniq('username', $db , 'users', 'This username is not available');
+    
       }
-      
 
-      // Check si le mail est définit et valide
-      if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-       
-        $errors['email'] = "votre email n'est pas valide";
+      // Check de l'email
+      $validator->isEmail('email', "This mail is not available");
 
-      } else {
-
-        $req = $pdo->prepare(' SELECT id FROM users WHERE email =?');
-
-        $req->execute([$_POST['email']]);
-
-        $user = $req->fetch();
-
-        if ($user) {
-          
-          $errors ['email'] = 'Cet email est déjà utilisé pour un autre compte';
-
-        }
-
+      if ($validator->isvalid()) {
+    
+        // Check si l'email n'est pas déjà utilisé
+        $validator->isUniq('email', $db , 'users', 'This mail is already use for other account');
+    
       }
 
 
-      if (empty($_POST['password']) || $_POST['password'] != $_POST['password_confirm']) {
+       // Check si le password est validé par le second champ
+      $validator->isConfirmed('password', 'Bad confirm password, please check it');
+    
 
-        $errors['password'] = "Vous devez entrer un mot de passe valide";
-
-      }
-
-      if (empty($errors)) {
-        
-        $req = $pdo->prepare("INSERT INTO users SET username = ?, email = ?, password = ?, nom = ?, prenom = ?, confirmation_token = ?");
+      if ($validator->isvalid()) {
         
         $options = array('cost' => 11);
         $password = password_hash($_POST['password'], PASSWORD_BCRYPT, $options);
@@ -85,10 +47,10 @@
         debug($token);
 
         // Création de l'entrée user dans la BDD
-        $req->execute([$_POST['username'], $_POST['email'], $password, 'test', 'test', $token]);
+        $req = $db->query('INSERT INTO users SET username = ?, email = ?, password = ?, nom = ?, prenom = ?, confirmation_token = ?', [$_POST['username'], $_POST['email'], $password, 'test', 'test', $token]);
         // die('Votre compte à bien été créé');
 
-        $user_id = $pdo->lastInsertId();
+        $user_id = $db->lastInsertId();
         debug($user_id);
     
 
@@ -110,6 +72,12 @@
         header('location:../login/');
 
         exit();
+      }
+      else {
+
+        $errors = $validator->getErrors();
+
+
       }
 
       // debug($errors);

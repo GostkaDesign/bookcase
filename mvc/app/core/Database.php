@@ -44,4 +44,9 @@ class Database {
 		// faire un fetch ou fetchall ensuite
 
     }
+
+    public function lastInsertId(){
+        return $this->pdo->lastInsertId();
+    }
+
 }
