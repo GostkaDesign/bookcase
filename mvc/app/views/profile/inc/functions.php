@@ -89,7 +89,6 @@ function reconnect_from_cookie(){
 
 }
 
-
 // echo '<br>function.php <span class="label label-success">loaded</span>';
 
 ?>
