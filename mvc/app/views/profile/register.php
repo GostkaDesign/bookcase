@@ -7,7 +7,7 @@
       $errors = array();
 
       // On se connecte à la BDD
-      $db = GlobalApp::getDatabase();
+      $db = AppDB::getDatabase();
 
       $validator = new Validator($_POST);
 
@@ -38,13 +38,13 @@
 
       if ($validator->isvalid()) {
         
-        $DatabaseAuth = new DatabaseAuth($db);
+        $auth = new Auth();
 
-        $DatabaseAuth->register($_POST['username'], $_POST['password'], $_POST['email']);
+        $auth->register($db, $_POST['username'], $_POST['password'], $_POST['email']);
 
         Session::getInstance()->setFlash("success", "Un e-mail de validation vous à été envoyé pour valider votre compte.");
 
-        GlobalApp::redirect("../login/");
+        AppDB::redirect("../login/");
       }
       else {
 
@@ -53,14 +53,15 @@
 
       }
 
-      // debug($errors);
+      //debug($errors);
 
     }
 
     ?>
     <div class="container">
 
-      <h1>S'inscrire<h1>
+      <h1>Sign Up<h1>
+      <h2>It’s free and always will be.</h2>
 
       <?php if (!empty($errors)): ?>
 

@@ -1,8 +1,8 @@
-<?php
-// toutes les fonction global ici
-class GlobalApp{
-    
-	static $db = null;
+<?php 
+
+class AppDB {
+
+static $db = null;
 
     static function getDatabase(){
 
@@ -28,3 +28,5 @@ class GlobalApp{
     }
 
 }
+
+?>

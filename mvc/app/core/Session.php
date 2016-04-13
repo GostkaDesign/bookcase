@@ -16,7 +16,7 @@ class Session
 
     static function getInstance (){
     	if (!self::$instance) {
-            
+
     		self::$instance = new Session();
 
     	}
@@ -36,12 +36,12 @@ class Session
     public function hasFlashes()
     {
     	
-    	return isset($SESSION['flash']);
+    	return isset($_SESSION['flash']);
 
     }
 
     public function getFlashes(){
-
+        
         $flash = $_SESSION['flash'];
 
         unset ($_SESSION['flash']);

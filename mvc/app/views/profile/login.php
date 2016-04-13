@@ -39,7 +39,7 @@
 
 
     <div class="container">
-      <h1>Connectez vous</h1>
+      <h1>Login</h1>
 		
 		<?php
 		if (!empty($_POST) &&  !empty($_POST['username']) && !empty($_POST['password'])) {
@@ -63,7 +63,7 @@
 		      	if (isset($_POST['remember'])) {
 		      		
 		      		// voir plus securise
-		      		$remember_token = str_random(250);
+		      		 $remember_token = Str::random(250);
 		      		
 		      		// $req = $pdo->prepare('SELECT * FROM users WHERE remeber_token != NULL');
 		      		$pdo->prepare('UPDATE users SET remember_token = ? WHERE id = ?')->execute([$remember_token, $user->id]);
@@ -92,7 +92,7 @@
 		?>
 
 		<form action="" method="POST" class="form-horizontal">
-			<legend>Connect to you account</legend>
+			<legend>Connect to your account</legend>
 			<div class="form-group">
 				<label for="username control-label">Username or e-mail</label>
 				<input type="text" name="username" class="form-control" value="<?php if (isset($_POST['username'])) { echo $_POST['username']; } ?>">

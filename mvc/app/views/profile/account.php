@@ -1,7 +1,8 @@
 <?php include_once 'inc/header.php'; ?>  
 <?php
 	// debug($_SESSION);
-	is_connected();
+	$auth = new Auth();
+	// $auth->restrict(Session::getInstance());
 
 	// Pour changer le mot de passe
 	if (!empty($_POST)) {

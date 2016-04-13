@@ -13,20 +13,6 @@ function debug ($variable){
 }
 
 
-function is_connected(){
-	
-	if (!isset($_SESSION['auth'])) {
-		
-		$_SESSION['flash']['danger'] = "Acces denied. You must be loged.";
-
-		//Redirection vers la page profile
-      	header('location:../login/');
-
-      	exit();
-
-	}
-}
-
 function reconnect_from_cookie(){
 	
 	if (isset($_COOKIE['remember']) && !isset($_SESSION['auth'])) {

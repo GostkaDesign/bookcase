@@ -1,17 +1,11 @@
 <?php 
 
-class DatabaseAuth {
+class Auth {
 
-    private $db;
-
-    public function __construct($db)
-    {
-    	
-    	$this->db = $db;
-
+    public function __construct(){
     }
 
-    public function register ($username, $password, $email) {
+    public function register ($db, $username, $password, $email) {
 
     	$options = array('cost' => 11);
         $password = password_hash($password, PASSWORD_BCRYPT, $options);
@@ -22,15 +16,15 @@ class DatabaseAuth {
         debug($token);
 
         // Création de l'entrée user dans la BDD
-        $this->db->query('INSERT INTO users SET username = ?, email = ?, password = ?, confirmation_token = ?', [
+        $db->query('INSERT INTO users SET username = ?, email = ?, password = ?, confirmation_token = ?', [
 	          $username,
 	          $email,
 	          $password,
 	          $token
           ]);
-        // die('Votre compte à bien été créé');
+        
 
-        $user_id = $this->db->lastInsertId();
+        $user_id = $db->lastInsertId();
         debug($user_id);
     
 
@@ -47,17 +41,20 @@ class DatabaseAuth {
          
         mail($to, $object, $message, $headers);
 
+        // die('Votre compte à bien été créé');
+        // éventueellement faire un return true pour savoir si le compte à été créé
+
     }
 
-    public function confirm ($user_id, $token, $session){
+    public function confirm ($db, $user_id, $token, $session){
 
         
-        $user = $this->db->query('SELECT * FROM users WHERE id = ?', [$user_id])->fetch();
+        $user = $db->query('SELECT * FROM users WHERE id = ?', [$user_id])->fetch();
 
         if ($user && $user->confirmation_token == $token ) {     
 
             // Mise à jour de la date de validation
-            $this->db->query('UPDATE users SET confirmation_token = NULL, confirmed_at = NOW() WHERE id = ?', [$user_id]);
+            $db->query('UPDATE users SET confirmation_token = NULL, confirmed_at = NOW() WHERE id = ?', [$user_id]);
 
             // On stock l'utilisateur dans la variable session
             $session->write('auth', $user);
@@ -69,6 +66,20 @@ class DatabaseAuth {
             return false;
         }
 
+    }
+
+    public function restrict($session){
+
+        if (!$session->read('auth')) {
+        
+            $session->setFlash('danger', "Acces denied. You must be loged.");
+
+            //Redirection vers la page profile
+            AppDB::redirect("../login/");
+
+            exit();
+
+        }
     }
 
 

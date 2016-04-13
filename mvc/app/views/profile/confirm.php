@@ -5,23 +5,23 @@
       <?php
 
       // On se connecte à la BDD
-      $db = GlobalApp::getDatabase();
+      $db = AppDB::getDatabase();
       
       // authentification
-      $DatabaseAuth = new DatabaseAuth($db);
+      $auth = new Auth();
     
-      if ($DatabaseAuth->confirm($_GET['id'], $_GET['token'], Session::getInstance())){
+      if ($auth->confirm($db, $_GET['id'], $_GET['token'], Session::getInstance())){
 
         Session::getInstance()->setFlash("success", "Votre compte a bien été validé.");
 
-        GlobalApp::redirect("../account/");
+        AppDB::redirect("../account/");
 
 
       }else{
 
         Session::getInstance()->setFlash("danger", "Ce token n'est plus valide");
 
-        GlobalApp::redirect("../login/");
+        AppDB::redirect("../login/");
       	// die('pas ok!');
       }
 
