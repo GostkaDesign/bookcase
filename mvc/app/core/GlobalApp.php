@@ -18,4 +18,13 @@ class GlobalApp{
 
     }
 
+
+    static function redirect($page){
+
+        header("location: $page");
+
+        exit();
+        
+    }
+
 }

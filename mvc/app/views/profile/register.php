@@ -38,40 +38,13 @@
 
       if ($validator->isvalid()) {
         
-        $options = array('cost' => 11);
-        $password = password_hash($_POST['password'], PASSWORD_BCRYPT, $options);
+        $DatabaseAuth = new DatabaseAuth($db);
 
-        // Création du token pour la validation
-        $token = str_random(60);
+        $DatabaseAuth->register($_POST['username'], $_POST['password'], $_POST['email']);
 
-        debug($token);
+        Session::getInstance()->setFlash("success", "Un e-mail de validation vous à été envoyé pour valider votre compte.");
 
-        // Création de l'entrée user dans la BDD
-        $req = $db->query('INSERT INTO users SET username = ?, email = ?, password = ?, nom = ?, prenom = ?, confirmation_token = ?', [$_POST['username'], $_POST['email'], $password, 'test', 'test', $token]);
-        // die('Votre compte à bien été créé');
-
-        $user_id = $db->lastInsertId();
-        debug($user_id);
-    
-
-        $to = $_POST['email'];
-        $object = 'Confirmation de votre compte BOOKCASE';
-        $message = "<b>Confirmation de votre inscrition sur BookCase</b>\n\n\r\n\n\r
-        Afin de valider votre compte merci de cliquer sur ce lien : \n\n\r\r
-        http://localhost/gitkraken/projets/bookcase/mvc/public/profile/confirm/?id=" . $user_id . "&token=" . $token;
-         
-        $headers  = 'From: Bookcase - votre gestionnaire de livre en ligne'."\r\n";
-        $headers .= 'Reply-To: gostka@free.fr'."\r\n";
-        $headers .= 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-         
-        mail($to, $object, $message, $headers);
-
-        $_SESSION['flash']['success'] = "Un e-mail de validation vous à été envoyé pour valider votre compte.";
-
-        header('location:../login/');
-
-        exit();
+        GlobalApp::redirect("../login/");
       }
       else {
 
@@ -92,7 +65,7 @@
       <?php if (!empty($errors)): ?>
 
         <div class="alert alert-danger">
-          <p>Vous n'avez pas rempli le formulaire correctement </p>
+          <p>An error has occurred, you haven't properly completed the form</p>
             <ul>
           <?php foreach ($errors as $error): ?>
               <li><?= $error; ?></li>

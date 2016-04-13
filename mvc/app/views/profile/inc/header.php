@@ -1,9 +1,9 @@
 <?php
 require ('functions.php');
-if (session_status() == PHP_SESSION_NONE) {
-      session_start();
-      // echo('<br><br><div><span class="label label-success">SESSION START</span></div><br>');
-    }
+// if (session_status() == PHP_SESSION_NONE) {
+//       session_start();
+//       // echo('<br><br><div><span class="label label-success">SESSION START</span></div><br>');
+//     }
 
 ?>
 
@@ -60,8 +60,8 @@ if (session_status() == PHP_SESSION_NONE) {
       </div>
     </nav>
 
-    <?php if (isset($_SESSION['flash'])): ?>
-        <?php foreach ($_SESSION['flash'] as $type => $message): ?>
+    <?php if (Session::getInstance()->hasFlashes()): ?>
+        <?php foreach (Session::getInstance()->getFlashes as $type => $message): ?>
 
         <div class="alert alert-<?= $type; ?>">
           
@@ -70,7 +70,5 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>          
         
         <?php endforeach; ?>
-
-        <?php unset($_SESSION['flash']); ?>
 
     <?php endif; ?>

@@ -17,7 +17,8 @@
 		
 			if ($user) {
 				
-				$reset_token = str_random(60);
+				$reset_token = Str::random(60);
+
 
 				$pdo->prepare('UPDATE users SET reset_token = ?, reset_at = NOW() WHERE id = ?')->execute([$reset_token, $user->id]);
 		      

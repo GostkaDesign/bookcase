@@ -4,49 +4,24 @@
 
       <?php
 
-      $user_id = $_GET['id'];
+      // On se connecte à la BDD
+      $db = GlobalApp::getDatabase();
+      
+      // authentification
+      $DatabaseAuth = new DatabaseAuth($db);
+    
+      if ($DatabaseAuth->confirm($_GET['id'], $_GET['token'], Session::getInstance())){
 
-      $user_token = $_GET['token'];
+        Session::getInstance()->setFlash("success", "Votre compte a bien été validé.");
 
-      require 'inc/db.php';
-
-      $req = $pdo->prepare('SELECT * FROM users WHERE id = ?');
-
-      $req->execute([$user_id]);
-
-      $user = $req->fetch();
+        GlobalApp::redirect("../account/");
 
 
-      // Demarrage de la sessions
-      // session_start(); // présent dans le header.php
+      }else{
 
-      if ($user && $user->confirmation_token == $user_token ) {
-      	
+        Session::getInstance()->setFlash("danger", "Ce token n'est plus valide");
 
-      	// Mise a jour de la date de validation
-      	$pdo->prepare('UPDATE users SET confirmation_token = NULL, confirmed_at = NOW() WHERE id = ?')->execute([$user_id]);
-
-		    $req = $pdo->prepare('SELECT * FROM users WHERE id = ?');
-		  
-        $req->execute([$user_id]);
-      	
-      	$user = $req->fetch();
-
-        $_SESSION['flash']['success'] = "Votre compte a bien été validé.";
-
-      	// On stock l'utilisateur dans la variable session
-      	$_SESSION['auth'] = $user;
-
-      	//Redirection vers la page profile
-      	header('location:../account/'.$user->username);
-
-      	// die('ok!');
-
-      }else {
-
-      	$_SESSION['flash']['danger'] = "Ce token n'est plus valide";
-
-      	header('location:../login/'.$user->username);
+        GlobalApp::redirect("../login/");
       	// die('pas ok!');
       }
 

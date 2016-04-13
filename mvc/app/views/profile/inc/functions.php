@@ -12,13 +12,6 @@ function debug ($variable){
 	
 }
 
-function str_random($lenght){
-
-	$alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-	return substr(str_shuffle(str_repeat($alphabet, $lenght)), 0 , $lenght);
-
-}
 
 function is_connected(){
 	
