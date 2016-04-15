@@ -15,56 +15,56 @@ function debug ($variable){
 
 function reconnect_from_cookie(){
 	
-	if (isset($_COOKIE['remember']) && !isset($_SESSION['auth'])) {
+	// if (isset($_COOKIE['remember']) && !isset($_SESSION['auth'])) {
 
-		require_once 'db.php';
+	// 	require_once 'db.php';
 
-		if (!isset($pdo)) {
-		
-			global $pdo;
-		
-		}
-
-		$remember_token = $_COOKIE['remember'];
-
-		$parts = explode('==', $remember_token);
-
-		$user_id = $parts[0];
-
-		$req = $pdo->prepare('SELECT * FROM users WHERE id = ?');
-		
-		$req->execute([$user_id]);
-
-		$user = $req->fetch();
-
-		if ($user) {
-			
-			$expected = $user_id . '==' . $user->remember_token . sha1($user_id . 'BookCase');
-
-			if ($expected == $remember_token) {
-				
-				// session_start();
-
-				$_SESSION['auth'] = $user;
-
-		      	$_SESSION['flash']['success'] = "Auth success !";
-
-		      	// On rafraichi le cookie
-		      	setcookie('remember', $remember_token, time() + 60 * 60 * 24 * 7);
-
-			}else {
-
-				setcookie('remember', NULL, -1);
-
-			}
-		}else {
+	// 	if (!isset($pdo)) {
 	
-			setcookie('remember', NULL, -1);
+	// 		global $pdo;
 	
-		}
+	// 	}
+
+	// 	$remember_token = $_COOKIE['remember'];
+
+	// 	$parts = explode('==', $remember_token);
+
+	// 	$user_id = $parts[0];
+
+	// 	$req = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+	
+	// 	$req->execute([$user_id]);
+
+	// 	$user = $req->fetch();
+
+	// 	if ($user) {
+	
+	// 		$expected = $user_id . '==' . $user->remember_token . sha1($user_id . 'BookCase');
+
+	// 		if ($expected == $remember_token) {
+	
+	// 			// session_start();
+
+	// 			$_SESSION['auth'] = $user;
+
+	// 	      	$_SESSION['flash']['success'] = "Auth success !";
+
+	// 	      	// On rafraichi le cookie
+	// 	      	setcookie('remember', $remember_token, time() + 60 * 60 * 24 * 7);
+
+	// 		}else {
+
+	// 			setcookie('remember', NULL, -1);
+
+	// 		}
+	// 	}else {
+	
+	// 		setcookie('remember', NULL, -1);
+	
+	// 	}
 
 
-	}
+	// }
 
 }
 

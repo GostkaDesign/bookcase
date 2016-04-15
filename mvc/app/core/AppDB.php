@@ -2,7 +2,7 @@
 
 class AppDB {
 
-static $db = null;
+    static $db = null;
 
     static function getDatabase(){
 
@@ -11,13 +11,12 @@ static $db = null;
     	if (!self::$db) {
     		
     		self::$db = new Database('root', '', 'bookcase', 'localhost');
-    	
+           
     	}
 
     	return self::$db;
 
     }
-
 
     static function redirect($page){
 
@@ -26,6 +25,17 @@ static $db = null;
         exit();
         
     }
+
+    static function getAuth(){
+        //A chaque appel on appel une instance differente.
+        //A voir s'il faudra modifier et renvoyer toujour la meme
+        // lorsque la connexion facebook sera la 
+
+        return new Auth(Session::getInstance(), ['restriction_msg' => 'Lol tu es bloque']);
+
+    }
+
+    
 
 }
 

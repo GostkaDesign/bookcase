@@ -1,35 +1,34 @@
 <?php include_once 'inc/header.php'; ?>  
 
-    <div class="container">
+<div class="container">
 
-      <?php
+  <?php
 
       // On se connecte à la BDD
-      $db = AppDB::getDatabase();
-      
+  $db = AppDB::getDatabase();
+  
       // authentification
-      $auth = new Auth();
-    
-      if ($auth->confirm($db, $_GET['id'], $_GET['token'], Session::getInstance())){
+  $auth = AppDB::getAuth();
+  
+  if ($auth->confirm($db, $_GET['id'], $_GET['token'])){
 
-        Session::getInstance()->setFlash("success", "Votre compte a bien été validé.");
+    Session::getInstance()->setFlash("success", "Votre compte a bien été validé.");
 
-        AppDB::redirect("../account/");
+    AppDB::redirect("../account/");
 
 
-      }else{
+  }else{
 
-        Session::getInstance()->setFlash("danger", "Ce token n'est plus valide");
+    Session::getInstance()->setFlash("danger", "Ce token n'est plus valide");
 
-        AppDB::redirect("../login/");
+    AppDB::redirect("../login/");
       	// die('pas ok!');
-      }
+  }
 
-      ?>
+  ?>
 
-    </div>
+</div>
 
 <?php
-  include_once 'inc/footer.php';
+include_once 'inc/footer.php';
 ?>  
-     
