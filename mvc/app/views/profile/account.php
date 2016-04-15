@@ -2,7 +2,13 @@
 <?php
 
 	// Restrict to logged
-AppDB::getAuth()->restrict();
+	$auth = AppDB::getAuth();
+	//restriction
+	$auth->restrict();
+
+	$db = AppDB::getDatabase();
+
+	$session = Session::getInstance();
 
 
 	// Pour changer le mot de passe
@@ -10,30 +16,31 @@ if (!empty($_POST)) {
 	
 	if (empty ($_POST['password']) || $_POST['password'] != $_POST['password_confirm']) {
 
-		$_SESSION['flash']['danger'] = "Both password wrong !";
+		$session->setFlash('danger', "Both password wrong !");
 
 	}else{
 
-		$user_id = $_SESSION['auth']->id;
+		$user_id = $session->read('auth')->id;
 
 		$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-		require_once 'inc/db.php';
+		$db->query('UPDATE users SET password = ?' , [$password]);
 
-		$pdo->prepare('UPDATE users SET password = ?')->execute([$password]);
-
-		$_SESSION['flash']['success'] = "Password update successfull";
+		$session->setFlash('success', "Password update successfull");
 
 	}
+
 }
+
 
 ?>
 
-<?php var_dump($_SESSION);?>
-
 <div class="container">
 	<h1>Votre compte</h1>
-	<p>Bonjour <b><?= $_SESSION['auth']->username ; ?></b></p>
+	<p>Bonjour <b><?= $session->read('auth')->username ; ?></b></p>
+	<p>Email : <?= $session->read('auth')->email ; ?></p>
+	<p>Nom : <?= $session->read('auth')->nom ; ?></p>
+	<p>Prenom : <?= $session->read('auth')->prenom ; ?></p>
 
 	<form action="" method="post">
 

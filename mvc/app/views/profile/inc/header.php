@@ -52,7 +52,7 @@ require ('functions.php');
             <li class="active"><a href="../register/">Register</a></li>
 
             <li><a href="../login/">login</a></li>
-
+            <li><a href="../logout/">Logout</a></li>
           <?php endif; ?>
 
           </ul>

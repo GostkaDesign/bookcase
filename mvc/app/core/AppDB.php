@@ -31,7 +31,7 @@ class AppDB {
         //A voir s'il faudra modifier et renvoyer toujour la meme
         // lorsque la connexion facebook sera la 
 
-        return new Auth(Session::getInstance(), ['restriction_msg' => 'Lol tu es bloque']);
+        return new Auth(Session::getInstance(), ['restriction_msg' => 'Access reservé']);
 
     }
 

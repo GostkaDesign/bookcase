@@ -18,11 +18,16 @@ class Auth {
 
     }
 
+    public function hashPassword ($password){
+
+        $conf = array('cost' => 11);
+        $password = password_hash($password, PASSWORD_BCRYPT, $conf);
+        return $password;
+    }
+
     public function register ($db, $username, $password, $email) {
 
-    	$conf = array('cost' => 11);
-        $password = password_hash($password, PASSWORD_BCRYPT, $conf);
-
+        $password = $this->hashPassword($password);
         // Création du token pour la validation
         $token = Str::random(60);
 
@@ -47,10 +52,10 @@ class Auth {
         Afin de valider votre compte merci de cliquer sur ce lien : \n\n\r\r
         http://localhost/gitkraken/projets/bookcase/mvc/public/profile/confirm/?id=" . $user_id . "&token=" . $token;
         
-        $headers  = 'From: Bookcase - votre gestionnaire de livre en ligne'."\r\n";
-        $headers .= 'Reply-To: gostka@free.fr'."\r\n";
-        $headers .= 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers  = 'From: gostka@free.f'."\r\n".
+                    'Reply-To: gostka@free.fr'."\r\n".
+                    'MIME-Version: 1.0' . "\r\n".
+                    'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         
         mail($to, $object, $message, $headers);
 
@@ -202,6 +207,50 @@ class Auth {
         }
 
     }
+
+    public function logout(){
+        
+        setcookie('remember', NULL, -1);
+        
+        $this->session->delete('auth');
+
+    }
+
+    public function rememberPassword($db, $email){
+
+        $user = $db->query('SELECT * FROM users WHERE email = ? AND confirmed_at IS NOT NULL', [$email])->fetch();
+
+        if ($user) {
+
+            $reset_token = Str::random(60);
+
+            $db->query('UPDATE users SET reset_token = ?, reset_at = NOW() WHERE id = ?', [$reset_token, $user->id]);
+
+            $to = $email;
+            $object = 'Reinitialisation de votre mot de passe BOOKCASE';
+            $message = "<b>Afin de reinitialise votre mot de passe BOOKCASE merci de cliquer sur ce lien : </b>\n\n\r\r
+            http://localhost/gitkraken/projets/bookcase/mvc/public/profile/password_reset/?id={$user->id}&token=" . $reset_token;
+
+            $headers  = 'From: gostka@free.fr'."\r\n".
+                        'Reply-To: gostka@free.fr'."\r\n".
+                        'MIME-Version: 1.0' . "\r\n".
+                        'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+            mail($to, $object, $message, $headers);
+
+            return $user;
+
+        }
+        return false;
+
+    }
+
+    public function getUserFromUserToken($db, $user_id, $token){
+
+        return $db->query('SELECT * FROM users WHERE id = ? AND reset_token = ? AND reset_at > DATE_SUB(NOW(), INTERVAL 30 MINUTE)', [$user_id, $token])->fetch();
+
+    }
+    
 
 
 }

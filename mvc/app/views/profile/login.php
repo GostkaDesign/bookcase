@@ -30,7 +30,7 @@ if ($auth->user()) {
 			
 			if ($user) {
 
-				$session->setFlash("success", "Vous êtes maintenant connection");
+				$session->setFlash("success", "Welcome, you're now connected");
 				AppDB::redirect("../account/");
 			}
 			else {

@@ -4,89 +4,78 @@
 
 if (isset($_GET['id']) && isset($_GET['token'])) {
 
-	require 'inc/db.php';
+	$db = AppDB::getDatabase();
+	$auth = AppDB::getAuth();
+	$session = Session::getInstance();
 
-	$req = $pdo->prepare('SELECT * FROM users WHERE id = ? AND reset_token = ? AND reset_at > DATE_SUB(NOW(), INTERVAL 30 MINUTE)');
 
-	$req->execute([$_GET['id'], $_GET['token']]);
-
-	$user = $req->fetch();
-
+	$user = $auth->getUserFromUserToken($db, $_GET['id'], $_GET['token']);
+	// get user from user token
 
 	if ($user) {
 
-		debug($user);
-
 		if (!empty($_POST)) {
 
+			$validator = new Validator($_POST);
+			$validator->isConfirmed('password', "Les champs ne correspondent pas");
 
-			if (!empty($_POST['password']) && $_POST['password'] == $_POST['password_confirm']) {
+			if ($validator->isValid()) {
+
+				$password = $auth->hashPassword($_POST['password']);
+
+				$db->query('UPDATE users SET password = ?, reset_at = NULL, reset_token = NULL WHERE id = ?', [$password, $_GET['id']]);
+
+				$session->setFlash('success', "Password update successfull");
 				
-				$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+				$session->write('auth', $user);
 
-				$req = $pdo->prepare('UPDATE users SET password = ?, reset_at = NULL, reset_token = NULL');
-
-				$req->execute([$password]);
-
-				// puis on le connect
-				// session_start();
-
-				$_SESSION['flash']['success'] = "Password update successfull";
-
-				$_SESSION['auth'] = $user;
-
-				header('location: ../account/');
-
-				exit();
+				$auth->connect($user);
+				
+				AppDB::redirect("../account/$user->username");
 
 			}else {
-				// Rien n'est envoyé				
-				$_SESSION['flash']['danger'] = "Les champs ne correspondent pas";
+                // Rien n'est envoyé                
+				$session->setFlash('danger', "Les champs ne correspondent pas");
+				AppDB::redirect("../login/");
 			}
-		}else {
-			// Rien n'est envoyé				
-			$_SESSION['flash']['danger'] = "Vous n'avez rien rempli";
 		}
 		
-	} else {
-
-		$_SESSION['flash']['danger'] = "Ce token n'est pas valide";
-
-		header('location: ../login/');
-
-		exit();
 	}
-} else {
+	else {
 
-	header('location: ../login/');
+		$session->setFlash('danger',  "Ce token n'est pas valide");
+		AppDB::redirect("../login/");
 
-	exit();
+	}
+}
+else {
+	$session->setFlash('danger', "No account for this email");
+	AppDB::redirect("../login/");
 }
 
 ?> 
 
-    <div class="container">
-      <h1>Reset de votre password</h1>
+<div class="container">
+	<h1>Reset de votre password</h1>
 
-		<form action="" method="POST">
-      
-			<div class="form-group">
-				<label for="password">New password</label>
-				<input type="password" name="password" class="form-control">
-			</div>
+	<form action="" method="POST">
 
-			<div class="form-group">
-				<label for="password">New password confirmation</label>
-				<input type="password" name="password_confirm" class="form-control">
-			</div>
+		<div class="form-group">
+			<label for="password">New password</label>
+			<input type="password" name="password" class="form-control">
+		</div>
 
-			<button type="submit" class="btn btn-primary">Reset your password</button>
+		<div class="form-group">
+			<label for="password">New password confirmation</label>
+			<input type="password" name="password_confirm" class="form-control">
+		</div>
 
-      	</form>
-		
-    </div>
+		<button type="submit" class="btn btn-primary">Reset your password</button>
+
+	</form>
+</div>
 
 <?php
-  include_once 'inc/footer.php';
+include_once 'inc/footer.php';
 ?>  
-     
+
