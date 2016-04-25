@@ -250,6 +250,21 @@ class Auth {
         return $db->query('SELECT * FROM users WHERE id = ? AND reset_token = ? AND reset_at > DATE_SUB(NOW(), INTERVAL 30 MINUTE)', [$user_id, $token])->fetch();
 
     }
+
+    public function changePassword($db, $user_id, $password){
+
+        $password = $this->hashPassword($password);
+        // Update du password        
+        $db->query('UPDATE users SET password = ?, reset_at = NOW() WHERE id = ?', [$password, $user_id]);
+
+    }
+
+    // public function update($db, $user_id, $label, $value){
+
+    //     // Update du password        
+    //     $db->query('UPDATE users SET $label = ? WHERE id = ?', [$password, $value]);
+
+    // }
     
 
 

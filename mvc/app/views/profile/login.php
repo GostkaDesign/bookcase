@@ -31,7 +31,8 @@ if ($auth->user()) {
 			if ($user) {
 
 				$session->setFlash("success", "Welcome, you're now connected");
-				AppDB::redirect("../account/");
+				AppDB::redirect("../account/$user->username");
+				
 			}
 			else {
 				$session->setFlash("danger", "Login or password invalid");
