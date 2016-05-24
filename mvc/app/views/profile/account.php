@@ -1,12 +1,13 @@
-<?php include_once 'inc/header.php'; ?>  
+<?php include_once '/../inc/header.php'; ?>
 <?php
 
 	// Restrict to logged
 	$auth = AppDB::getAuth();
-	//restriction
-	$auth->restrict();
 
 	$db = AppDB::getDatabase();
+
+	//restriction
+	$auth->restrict($db, 'member');
 
 	$session = Session::getInstance();
 
@@ -47,9 +48,15 @@ if (!empty($_POST)) {
 <div class="container">
 	<h1>Votre compte</h1>
 	<p>Bonjour <b><?= $session->read('auth')->username ; ?></b></p>
+	<p>Grade : <?= $session->read('auth')->name ; ?></p>
+	<hr>
 	<p>Email : <?= $session->read('auth')->email ; ?></p>
-	<p>Nom : <?= $session->read('auth')->nom ; ?></p>
-	<p>Prenom : <?= $session->read('auth')->prenom ; ?></p>
+
+	<p>Nom : <?= $session->read('auth')->last_name ; ?></p>
+	<p>Prenom : <?= $session->read('auth')->first_name ; ?></p>
+	<hr>
+
+
 
 	<h3>Change password</h3>
 
@@ -75,5 +82,5 @@ if (!empty($_POST)) {
 </div>
 
 <?php
-include_once 'inc/footer.php';
+include_once '/../inc/footer.php';
 ?>  

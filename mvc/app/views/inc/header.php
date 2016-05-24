@@ -1,12 +1,3 @@
-<?php
-require ('functions.php');
-// if (session_status() == PHP_SESSION_NONE) {
-//       session_start();
-//       // echo('<br><br><div><span class="label label-success">SESSION START</span></div><br>');
-//     }
-
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
   <head>

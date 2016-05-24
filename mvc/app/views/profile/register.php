@@ -1,4 +1,4 @@
-<?php include_once 'inc/header.php'; ?>  
+<?php include_once '/../inc/header.php'; ?>  
 
 <?php
 if (!empty($_POST)) { 
@@ -106,7 +106,7 @@ if (!empty($_POST)) {
 </div>
 
 <?php
-include_once 'inc/footer.php';
+include_once '/../inc/footer.php';
 ?>  
 
 

@@ -86,8 +86,41 @@ class Auth {
 
     }
 
-    public function restrict(){
+    // public function restrict(){
 
+    //     if (!$this->session->read('auth')) {
+
+    //         $this->session->setFlash('danger', $this->options['restriction_msg']);
+
+    //         //Redirection vers la page profile
+    //         AppDB::redirect("../login/");
+
+    //         exit();
+
+    //     }
+    // }
+    private function getSlugs($db){
+
+        $slugs = $db->query('SELECT slug,level FROM roles')->fetchAll();
+        $roles = array();
+
+        foreach ($slugs as $key => $userType) {
+            // echo "[$key]  ";
+            // var_dump($userType);
+            // echo "Slug: $userType->slug  |    ";
+            // echo "level: $userType->level";
+            // echo '<br>';
+            $roles[$userType->slug] = $userType;
+            unset($userType);
+        }
+        return $roles;
+    }
+
+
+    /*Autorise des rangs a acceder à une page*/
+    public function restrict($db, $slug = "member"){
+
+        // On test si l'utilisateur est connecté
         if (!$this->session->read('auth')) {
 
             $this->session->setFlash('danger', $this->options['restriction_msg']);
@@ -96,10 +129,29 @@ class Auth {
             AppDB::redirect("../login/");
 
             exit();
-
         }
+
+        // On va vérifier tous les roles disponnibles
+        $roles = $this->getSlugs($db);
+        
+        if (!isset($roles[$slug]->slug)) {
+            $this->session->setFlash('danger', "Type de profil non connu ou verifier la syntax pour $slug");
+        }
+        else {
+            if ($this->session->read('auth')->level >= $roles[$slug]->level){
+                $this->session->setFlash('success', "Vous avez les droits necessaires");
+            }
+            else {
+                $this->session->setFlash('danger', $this->options['restriction_lvl_msg']);
+                //Redirection vers la page profile
+                // AppDB::redirect("../login/");
+                exit();
+            }
+        }
+
     }
 
+    // return l'utilisateur depuis la session
     public function user(){
 
         if (!$this->session->read('auth')) {
@@ -107,17 +159,18 @@ class Auth {
             return false;
             
         }
-        //else
         return $this->session->read('auth');
 
     }
 
+    //connexion de l'utilisateur 
     public function connect($user){
 
         $this->session->write('auth', $user);
 
     }
 
+    // connexion depuis un cookie + rafraichissement des cookies
     public function connectFromCookie($db){
 
         if (isset($_COOKIE['remember']) && !$this->user()) {
@@ -160,14 +213,17 @@ class Auth {
         
     }
 
+    // Return l'utilisateur s'il existe
     private function user_exist($db, $username, $password){
 
-        $user = $db->query('SELECT * FROM users WHERE (username = :username OR email = :username) AND confirmed_at IS NOT NULL', ['username' => $username])->fetch();
+        // $user = $db->query('SELECT * FROM users WHERE (username = :username OR email = :username) AND confirmed_at IS NOT NULL', ['username' => $username])->fetch();
+        $user = $db->query('SELECT * FROM users LEFT JOIN roles ON users.role_id=roles.id WHERE (username = :username OR email = :username) AND confirmed_at IS NOT NULL', ['username' => $username])->fetch();
 
         return $user;
 
     }
 
+    // Connexion à un compte
     public function login ($db, $username, $password, $remember = false){
 
         $user = $this->user_exist($db, $username, $password);
@@ -208,6 +264,7 @@ class Auth {
 
     }
 
+    //Deconnexion d'un compte
     public function logout(){
         
         setcookie('remember', NULL, -1);
@@ -216,6 +273,7 @@ class Auth {
 
     }
 
+    // Renvoie un token pour reinitialiser son mot de passe
     public function rememberPassword($db, $email){
 
         $user = $db->query('SELECT * FROM users WHERE email = ? AND confirmed_at IS NOT NULL', [$email])->fetch();
@@ -245,12 +303,14 @@ class Auth {
 
     }
 
+    // Verifie le token de l'user
     public function getUserFromUserToken($db, $user_id, $token){
 
         return $db->query('SELECT * FROM users WHERE id = ? AND reset_token = ? AND reset_at > DATE_SUB(NOW(), INTERVAL 30 MINUTE)', [$user_id, $token])->fetch();
 
     }
 
+    // Mise a jour du mot de passe du compte
     public function changePassword($db, $user_id, $password){
 
         $password = $this->hashPassword($password);

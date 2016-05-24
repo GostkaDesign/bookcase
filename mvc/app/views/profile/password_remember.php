@@ -1,4 +1,4 @@
-<?php include_once 'inc/header.php'; ?>  
+<?php include_once '/../inc/header.php'; ?>  
 
     <div class="container">
       <h1>Mot de pass oublié</h1>
@@ -38,6 +38,6 @@
     </div>
 
 <?php
-  include_once 'inc/footer.php';
+  include_once '/../inc/footer.php';
 ?>  
      

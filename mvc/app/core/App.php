@@ -14,7 +14,7 @@ class App
 
 	function __construct()
 	{
-		
+
 		$url = $this->parseUrl();
 		// echo "TEST si le fichier existe'../app/controllers/'" . $url[0] . "'.php'<br>";
 		if (file_exists('../app/controllers/' . $url[0] . '.php'))
@@ -30,17 +30,16 @@ class App
 		// Instanciation du controller
 		$this->controller = new $this->controller;
 
-
 		if (isset($url[1]))
 		{
 			if (method_exists($this->controller, $url[1]))
 			{
-				// echo 'ok le fichier existe vraiment';
+				echo 'ok le fichier existe vraiment';
 				$this->method = $url[1];
 				unset($url[1]);
 			}
 		}
-
+		
 
 		// ICI LES LAYOUT CERTAINEMENT A VERIFIER
 		// $this->layout = new $this->layout;

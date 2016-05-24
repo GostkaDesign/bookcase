@@ -1,5 +1,9 @@
-HELLO <?=$data['name']?>
-var_dump(PHP);
+HELLO
+<?php
+	echo $data['name'];
+	echo "<br>";
+	var_dump($data);
+?>
 
 <?php
 

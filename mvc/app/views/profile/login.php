@@ -1,4 +1,4 @@
-<?php include_once 'inc/header.php'; ?>
+<?php include_once '/../inc/header.php'; ?>
 
 <?php
 
@@ -72,5 +72,5 @@ if ($auth->user()) {
 </div>
 
 <?php
-include_once 'inc/footer.php';
+include_once '/../inc/footer.php';
 ?>  
