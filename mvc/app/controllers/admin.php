@@ -1,32 +1,44 @@
 <?php
+
+
 /**
 * 
 */
 class Admin extends Controller {
 	
-	public function Index($name = ''){
+	public function Index(){
 		
 		// Définition du modèle à utiliser
-		$user = $this->model('Admin_model');
+		// $data = $this->model('Admin_model');
 
-		// On set la variable
-		$user->name = $name;
+		// On set les variables
+		// $data->name = $name;
 
 		// Définition de la vue à utiliser
-		$this->view('admin/index', ['name' => $user->name]);
+		$this->view('admin/index');
 
 	}
 
-	public function Users($name = ''){
-		
-		// Définition du modèle à utiliser
-		$user = $this->model('Admin_model');
+	public function Users(){
+	
+			// Définition du modèle à utiliser
+		$data = $this->model('User');
 
-		// On set la variable
-		$user->name = $name;
+		// $data = $this->layout('test_layout_home');
+		// 
+		$db = AppDB::getDatabase();
+		
+
+		// On set les variables
+		$users = new User();
+		// $data->users = $users->get_users($db);
+		$data->users = $users->get_users_list($db);
+		// $data->roles = $users->get_roles($db);
+
+		// var_dump($data);
 
 		// Définition de la vue à utiliser
-		$this->view('admin/users', ['name' => $user->name]);
+		$this->view('admin/users', $data);
 
 	}
 

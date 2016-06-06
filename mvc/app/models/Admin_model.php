@@ -2,7 +2,7 @@
 
 class Admin_model
 {
-	public $name;
+	// public $name;
 
 	function __construct()
 	{
@@ -11,7 +11,19 @@ class Admin_model
 		
 	}
 
-	// ici les requetes a la bdd
+	public function get_users($db){
+
+    	$users = $db->query('SELECT * FROM users')->fetchAll();
+    	return $users;
+
+    }
+
+    public function get_user($db, $id,$username){
+    	//a verifier
+    	$users = $db->query('SELECT * FROM users WHERE id=? OR username=?', [$id, $username])->fetch();
+    	return $user;
+
+    }
 
 	
 

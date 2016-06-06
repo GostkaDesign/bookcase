@@ -1,5 +1,7 @@
 <?php 
 
+namespace Bookcase\Form;
+
 /**
   * summary
   */

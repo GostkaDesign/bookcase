@@ -16,8 +16,8 @@ if (!empty($_POST)) {
 	
 	if (empty ($_POST['password']) || $_POST['password'] != $_POST['password_confirm']) {
 
-
 		$session->setFlash("danger", "Both password wrong !");
+
 		AppDB::redirect("../account/$user_name"); 
 
 	}else{
@@ -25,7 +25,6 @@ if (!empty($_POST)) {
 		$user_id = $session->read('auth')->id;
 
 		$session->setFlash('success', "Password update successfull");
-
 
 		$auth->changePassword($db, $session->read('auth')->id, $_POST['password']);
 
@@ -51,7 +50,6 @@ if (!empty($_POST)) {
 	<p>Grade : <?= $session->read('auth')->name ; ?></p>
 	<hr>
 	<p>Email : <?= $session->read('auth')->email ; ?></p>
-
 	<p>Nom : <?= $session->read('auth')->last_name ; ?></p>
 	<p>Prenom : <?= $session->read('auth')->first_name ; ?></p>
 	<hr>

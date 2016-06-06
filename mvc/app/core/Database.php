@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 class Database {
 
 	private $pdo;
@@ -50,3 +51,4 @@ class Database {
     }
 
 }
+?>

@@ -1,20 +1,23 @@
 <?php
-/**
-* 
-*/
+
 class Home extends Controller {
 	
 	public function index($name = '', $qqchose =''){
 
 		// Définition du modèle à utiliser
-		$user_var = $this->model('User');	
+		//on peut appeler plusieur model !!!
+		// ensuite on appelle les methodes du model
+		// et on envoie a la vue
+		$vars = $this->model('home_model');
+		$vars = $this->layout('test_layout_home');
 		
 		// On set la variable
-		$user_var->name = $name;
-		$user_var->qqchose = $qqchose; 
-
+		// $vars->name = $name;
+		// $vars->qqchose = $qqchose;
+		// var_dump($vars);
 		// Définition de la vue à utiliser
-		$this->view('home/index', ['name' => $user_var->name,'qqchose' => $user_var->qqchose ]);
+		$this->view('home/index', ['name' => $vars->name,'qqchose' => $vars->qqchose ]);
+		// $this->view('home/index', $vars);
 		// Note : pas de lien avec l'url mais avec l'architecture des fichier
 	}
 }

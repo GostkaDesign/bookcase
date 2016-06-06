@@ -1,5 +1,6 @@
 <?php 
 
+
 class AppDB {
 
     static $db = null;

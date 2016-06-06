@@ -1,4 +1,11 @@
-<?php include_once '/../inc/header.php'; ?>  
+<?php include_once '/../inc/header.php'; ?>
+
+<?php
+
+/* NAMESPACES */
+use Bookcase\Form\Validator;
+
+?>
 
 <?php
 if (!empty($_POST)) { 

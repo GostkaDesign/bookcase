@@ -2,6 +2,13 @@
 
 <?php
 
+/* NAMESPACES */
+use Bookcase\Form\Validator;
+
+?>
+
+<?php
+
 if (isset($_GET['id']) && isset($_GET['token'])) {
 
 	$db = AppDB::getDatabase();

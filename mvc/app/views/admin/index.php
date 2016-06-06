@@ -16,7 +16,7 @@
 
     <div class="container">
 
-PAGE ADMIN
+		<h1>INDEX ADMIN</h1>
 
 
     </div>

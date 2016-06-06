@@ -1,6 +1,7 @@
-<?php /**
- * summary
- */
+<?php 
+
+// namespace Bookcase\Auth;
+
 class Session
 {
     /**

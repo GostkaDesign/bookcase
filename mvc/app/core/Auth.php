@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 class Auth {
 
@@ -112,7 +113,7 @@ class Auth {
             // echo '<br>';
             $roles[$userType->slug] = $userType;
             unset($userType);
-        }
+        }       
         return $roles;
     }
 
@@ -126,7 +127,8 @@ class Auth {
             $this->session->setFlash('danger', $this->options['restriction_msg']);
 
             //Redirection vers la page profile
-            AppDB::redirect("../login/");
+            AppDB::redirect("../../profile/login/");
+
 
             exit();
         }
@@ -183,7 +185,7 @@ class Auth {
 
             $user = $db->query('SELECT * FROM users WHERE id = ?', [$user_id])->fetch();
             
-
+            
             if ($user) {
 
                 $expected = $user_id . '==' . $user->remember_token . sha1($user_id . 'BookCase');

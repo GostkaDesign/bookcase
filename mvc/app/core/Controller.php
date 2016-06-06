@@ -3,8 +3,8 @@
 class Controller
 {
 
-	//private $vars = [];
-
+	// private $vars = [];
+	public $layout = "default";
 
 	//Appel du model
 	public function model ($model)
@@ -25,19 +25,31 @@ class Controller
 
 		// echo 'DANS : APP/CORE/Controller.php<br>';
 		// echo "require '../app/views/'" . $view . "'.php'<hr>";
+		// 
+		ob_start();
 		require_once '../app/views/' . $view . '.php';
+		$content_for_layout = ob_get_clean();
+		if ($this->layout == false) {
+			echo $content_for_layout;
+		}else{
+			echo $this->layout;
+			require_once '../app/views/layouts/' . $this->layout . '.php';
+
+		}
 
 	}
 
 	// Appel du layout
-	// A FAIRE
 	public function layout($layout)
 	{
 
 		// require_once '../app/views/layout/' . $layout . '.php';
-		echo "layout a utiliser" . $layout;
+		echo "<br>layout a utiliser : " . $layout;
+		$this->layout = $layout;
 
 	}
+
+	
 
 	// Pour merger toutes les données envoyé au layout pour laffichage
 	// public function set($datas){

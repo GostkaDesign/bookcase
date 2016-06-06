@@ -34,7 +34,7 @@ class App
 		{
 			if (method_exists($this->controller, $url[1]))
 			{
-				echo 'ok le fichier existe vraiment';
+				// echo 'ok le fichier existe vraiment';
 				$this->method = $url[1];
 				unset($url[1]);
 			}
