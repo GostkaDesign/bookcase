@@ -2,12 +2,53 @@
 
 class User
 {
-		
-	function __construct()
+	
+
+    protected $db;
+    private $username;
+    private $email;
+    private $last_name;
+    private $first_name;
+    private $last_connection;
+    private $role_id;
+    private $is_logged = false;
+
+
+    /*********
+    / TAB USERS
+    /**********
+    id                  : int
+    role_id             : int
+    username            : varchar
+    email               : varchar
+    password            : varchar
+    last_name           : varchar
+    first_name          : varchar
+    confirmation_token  : varchar
+    confirmed_at        : datetime
+    reset_token         : varchar
+    reset_at            : datetime
+    remember_token      : varchar
+     */	
+	function __construct($db)
 	{
-		echo '<br>Bonjour je suis la class MODEL USER<br>';
-		// echo 'user : ' . $name . '<br>';
+		echo '<br><span class="label label-success">MODEL USER</span><br>';
+        $this->db = $db;        
 	}
+
+    static $instance; // singleton pattern
+
+    public static function getInstance (){
+
+        if (!self::$instance) {
+
+            self::$instance = new User();
+
+        }
+
+        return self::$instance;
+
+    }
 
     /**
      * db object
@@ -15,28 +56,21 @@ class User
      * username string
      * return string
      **/
-	public function get_users($db){
+	public function get_users(){
 
-        $users = $db->query('SELECT id, role_id, username, email FROM users')->fetchAll();
+        $users = $this->db->query('SELECT id, role_id, username, email FROM users')->fetchAll();
         return $users;
 
     }
 
-    // AVEC TOUS LES CHAMPS DE LA BDD
-    // public function get_users($db){
-
-    //     $users = $db->query('SELECT * FROM users')->fetchAll();
-    //     return $users;
-
-    // }
 
     /**
      * db object
      * return object
      **/
-    public function get_roles($db){
+    public function get_roles(){
 
-        $slugs = $db->query('SELECT slug,level FROM roles')->fetchAll();
+        $slugs = $this->db->query('SELECT slug,level FROM roles')->fetchAll();
         $roles = array();
 
         foreach ($slugs as $key => $userType) {
@@ -57,18 +91,22 @@ class User
      * user_id string
      * return string
      **/
-    // public function get_role($db, $user_id){
+    // public function get_roles($user_id){
 
-    //     $user_level = $db->query('SELECT role_id FROM users WHERE user_id=?',[$user_id])->fetch();
-    //     $role = $db->query('SELECT name,slug FROM roles WHERE level=?',[$user_level])->fetch();
+    //     $user_level = $this->db->query('SELECT role_id FROM users WHERE user_id=?',[$user_id])->fetch();
+    //     $role = $this->db->query('SELECT name,slug FROM roles WHERE level=?',[$user_level])->fetch();
     //     return $roles;
         
     // }
-    // 
     
-    private function get_role($db, $role_id){
+    /*
+    db object 
+    role_id number
+    return string
+     */
+    private function get_role($role_id){
 
-        $role = $db->query('SELECT name FROM roles WHERE level=?',[$role_id])->fetch();
+        $role = $this->db->query('SELECT name FROM roles WHERE level=?',[$role_id])->fetch();
         return $role->name;
     }
 
@@ -78,9 +116,9 @@ class User
      * username string
      * return string
      **/
-    public function get_user($db, $id, $username){
+    public function get_user($id, $username){
     	//a verifier
-    	$users = $db->query('SELECT * FROM users WHERE id=? OR username=?', [$id, $username])->fetch();
+    	$users = $this->db->query('SELECT * FROM users WHERE id=? OR username=?', [$id, $username])->fetch();
     	return $user;
 
     }
@@ -89,11 +127,9 @@ class User
      * db object
      * return string [html]
      **/
-    public function get_users_list($db){
-		
-		$users = $this->get_users($db);
-		// var_dump($users);
-    	
+    public function get_users_list(){
+		$users = $this->get_users();
+
     	$user_list = "<div class='list-group' >";
     	foreach ($users as $user) {
 
@@ -101,10 +137,10 @@ class User
     						<a href='#' class='list-group-item ' >";
     		$user_list .= "<h4 class='list-group-item-heading'><b>$user->username</b> [$user->id]</h4>";
 			$user_list .= "<p class='list-group-item-text'>";
-    //         foreach ($user as $key => $value) {
+                //foreach ($user as $key => $value) {
 				// 	$user_list .= "<b>$key</b> : $value<br>";
 				// }
-            $user_list .= "<b>Grade :</b> : ".$this->get_role($db,$user->role_id)."<br>"; 
+            $user_list .= "<b>Grade :</b> : ".$this->get_role($user->role_id)."<br>"; 
             $user_list .= "<b>Email :</b> : $user->email<br>";
 
 
@@ -118,6 +154,59 @@ class User
     	return $user_list;	
 
     }
+
+    public function promote_user($username, $role_level){
+        $this->db->query('UPDATE users SET role_id = ? WHERE username = ?', [$role_level, $username]);
+        $session = Session::getInstance();
+        // $user = $this->db->query('SELECT * FROM users WHERE username=?', [$username])->fetch();
+        $user = $this->db->query('SELECT * FROM users LEFT JOIN roles ON users.role_id=roles.level WHERE (username = :username OR email = :username) AND confirmed_at IS NOT NULL', ['username' => $username])->fetch();
+        var_dump($user);         
+        print_r($session);
+        // echo $user->role_id;
+
+        // $this->session->write('auth', $user);
+        $session->updateSessionUser($user);
+        
+        return true;
+    }
+
+    // public function update($db, $user_id, $label, $value){
+
+    //     // Update du password        
+    //     $db->query('UPDATE users SET $label = ? WHERE id = ?', [$label, $value]);
+
+    // }
+    // 
+    
+    public function update($username) {
+    }
+
+    public function delete($user) {
+        $this->$db->query('DELETE FROM users WHERE user = ', [$user]);
+        return true;
+    }
+
+    // public function get_users() {
+    //     $users = $this->$db->query('SELECT * FROM users');
+    //     return ($users);
+    // }
+
+
+    // INIT
+    // creation de la bdd 
+    // private function create_db() {
+    //     $query  = 'CREATE TABLE users ('
+    //             . 'user VARCHAR(75) NOT NULL, '
+    //             . 'password VARCHAR(75) NOT NULL, '
+    //             . 'email VARCHAR(150) NULL, '
+    //             . 'PRIMARY KEY (user) '
+    //             . ') ENGINE=MyISAM COLLATE=utf8_general_ci';
+    //     return ($this->db->query($query));
+    // }
+
+    // private function drop_db() {
+    //     $query  = 'DROP TABLE IF EXISTS users ';
+    // }
 }
 
 ?>

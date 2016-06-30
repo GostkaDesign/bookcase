@@ -1,51 +1,67 @@
 <?php
 
+// namespace App\Core;
+
 class Controller
 {
 
 	// private $vars = [];
 	public $layout = "default";
+	private $data = array();
+	private $meta_title="BookCase";
 
 	//Appel du model
-	public function model ($model)
-	{
-
-		// echo 'DANS : APP/CORE/Controller.php<br>';
-		// echo "require '../app/models/'" . $model . "'.php'<br>";
+	// $dependance sert à passer des param au model comme la $db
+	// Permet d'eviter de lier le code dans les classes
+	public function model ($model, $dependance = null){
 		require_once '../app/models/' . $model . '.php';
-		// echo "return $model()<hr>";
-		return new $model();
+		return new $model($dependance);
 
 	}
 
 
 	// Appel de la vue correspondante
-	public function view($view, $data = [])
-	{
-
-		// echo 'DANS : APP/CORE/Controller.php<br>';
-		// echo "require '../app/views/'" . $view . "'.php'<hr>";
+	public function view($view, $data = [])	{
+		
+		// var_dump($data);
 		// 
+		// permet de separer les entrees du tableau en var toutes simples
+		//
+		$data['meta_title'] = $this->meta_title;
 		ob_start();
+		extract($data);
+		// $meta_title = $this->meta_title;
 		require_once '../app/views/' . $view . '.php';
 		$content_for_layout = ob_get_clean();
-		if ($this->layout == false) {
-			echo $content_for_layout;
-		}else{
-			echo $this->layout;
-			require_once '../app/views/layouts/' . $this->layout . '.php';
 
+
+		if ( isset($this->layout) ) {
+			require_once '../app/views/layouts/' . $this->layout . '.php';
 		}
 
 	}
 
 	// Appel du layout
-	public function layout($layout)
-	{
+	public function layout($layout){
 
-		// require_once '../app/views/layout/' . $layout . '.php';
-		echo "<br>layout a utiliser : " . $layout;
 		$this->layout = $layout;
+		return $this->layout;
+
+	}
+
+	public function meta_title($meta_title){
+
+		if (isset($meta_title)){
+
+			$this->meta_title = $meta_title;
+			return $this->meta_title;
+
+		}
+		else {
+
+			return $this->meta_title;
+
+		}
 
 	}
 

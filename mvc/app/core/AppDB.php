@@ -1,27 +1,34 @@
 <?php 
 
+// namespace App\Core;
+// use \App\Core\Database\Database;
 
 class AppDB {
 
     static $db = null;
 
+    static $conf_DB_Name = 'default';
+
+
     // Connexion a la bdd
-    static function getDatabase(){
+    public static function getDatabase(){
 
     	// Condition qui permet d'initialiser la connexion à la base de donnée qu'une seule fois 
 
     	if (!self::$db) {
     		
-    		self::$db = new Database('root', '', 'bookcase', 'localhost');
+            $conf = Config\Conf::$databases[self::$conf_DB_Name];
+
+    		self::$db = new Database\MysqlDatabase($conf["database"], $conf["login"], $conf["password"], $conf["host"]);
            
     	}
-
     	return self::$db;
+
 
     }
 
     // Redirection
-    static function redirect($page){
+    public static function redirect($page){
 
         header("location: $page");
 
@@ -30,7 +37,7 @@ class AppDB {
     }
 
     // Genere uen instance unique d'authentification
-    static function getAuth(){
+    public static function getAuth(){
         //A chaque appel on appel une instance differente.
         //A voir s'il faudra modifier et renvoyer toujour la meme
         // lorsque la connexion facebook sera la 
@@ -39,6 +46,16 @@ class AppDB {
             'restriction_msg' => 'Access reservé',
             'restriction_lvl_msg' => 'Compte level pas asse elevé'
         ]);
+
+    }
+
+    // Factory pour les Tables
+    // sappel de cette facon var_dump(AppDB::getTable('Users'));
+    public static function getTable($tableName){
+        
+        $class_name = 'Table\\' . ucfirst($tableName) . 'Table';
+
+        return new $class_name(self::$db);
 
     }
 

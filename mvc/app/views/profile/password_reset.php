@@ -3,7 +3,7 @@
 <?php
 
 /* NAMESPACES */
-use Bookcase\Form\Validator;
+use \Form\Validator;
 
 ?>
 
@@ -38,12 +38,12 @@ if (isset($_GET['id']) && isset($_GET['token'])) {
 
 				$auth->connect($user);
 				
-				AppDB::redirect("../account/$user->username");
+				AppDB::redirect(WEBROOT."profile/account/$user->username");
 
 			}else {
                 // Rien n'est envoyé                
 				$session->setFlash('danger', "Les champs ne correspondent pas");
-				AppDB::redirect("../login/");
+				AppDB::redirect(WEBROOT."profile/login/");
 			}
 		}
 		
@@ -51,13 +51,13 @@ if (isset($_GET['id']) && isset($_GET['token'])) {
 	else {
 
 		$session->setFlash('danger',  "Ce token n'est pas valide");
-		AppDB::redirect("../login/");
+		AppDB::redirect(WEBROOT."profile/login/");
 
 	}
 }
 else {
 	$session->setFlash('danger', "No account for this email");
-	AppDB::redirect("../login/");
+	AppDB::redirect(WEBROOT."profile/login/");
 }
 
 ?> 

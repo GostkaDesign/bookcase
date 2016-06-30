@@ -1,5 +1,3 @@
-<?php include_once '/../inc/header.php'; ?>
-
 <?php
 
 	// Restrict to logged
@@ -8,18 +6,11 @@
 	$db = AppDB::getDatabase();
 
 	//restriction
-	$auth->restrict($db, 'admin');
+	$auth->restrict($db, 'guest');
 
 	$session = Session::getInstance();
-
-
 	
-
 ?>
-
-	<div class="container">
-
-	<h1>GESTION DES UTILISATEURS</h1>
  <?php
 
 // foreach ($allUser as $key) {
@@ -58,20 +49,14 @@
 		// echo "<hr>";
  	// }
  	// echo "</ul>";
+ 	
+ 	 
+ 	echo $users;
+	echo $category;
 
- 	// var_dump ($data);
- 	echo $data->users;
+
+
  	// var_dump($data);
  
  	
-?>
-
-
-
-
-
-	</div>
-
-<?php
-	include_once '/../inc/footer.php';
 ?>

@@ -1,4 +1,8 @@
 <?php
+
+// namespace App\Controllers;
+
+// use \App\Core\Controller;
 /**
 * 
 */
@@ -7,7 +11,7 @@ class Profile extends Controller {
 	public function Index($name = ''){
 		
 		// Définition du modèle à utiliser
-		$vars = $this->model('Profile_model');
+		$mode = $this->model('Profile_model');
 
 		// On set la variable
 		// $vars->name = $name;
@@ -20,7 +24,8 @@ class Profile extends Controller {
 	public function Login($name = ''){
 		
 		// Définition du modèle à utiliser
-		$vars = $this->model('Profile_model');
+		$model = $this->model('Profile_model');
+		$this->meta_title('dTitle de la page profil');
 
 		// On set la variable
 		// $vars->name = $name;
@@ -33,7 +38,7 @@ class Profile extends Controller {
 	public function Register($name = ''){
 		
 		// Définition du modèle à utiliser
-		$vars = $this->model('Profile_model');
+		$mode = $this->model('Profile_model');
 		
 		// On set la variable
 		// $vars->name = $name;
@@ -50,7 +55,7 @@ class Profile extends Controller {
 	public function Confirm($name = ''){
 		
 		// Définition du modèle à utiliser
-		$vars = $this->model('Profile_model');
+		$mode = $this->model('Profile_model');
 
 		// On set la variable
 		// $vars->name = $name;
@@ -64,21 +69,28 @@ class Profile extends Controller {
 	public function Account($name = ''){
 		
 		// Définition du modèle à utiliser
-		$vars = $this->model('Profile_model');
+		$model = $this->model('Profile_model');
+		$this->meta_title('dTitle de la page profil');
 
+		$name = $model->name;
+		
+		
+		// $this->updateSessionUser($user);
+		
 		// On set la variable
 		// $vars->name = $name;
-		var_dump($vars);
+		
+		// var_dump($vars);
 
 		// Définition de la vue à utiliser
-		$this->view('profile/account', ['name' => $vars->name]);
+		$this->view('profile/account', compact('name'));
 	}
 
 
 	public function Logout($name = ''){
 		
 		// Définition du modèle à utiliser
-		$vars = $this->model('Profile_model');
+		$mode = $this->model('Profile_model');
 
 		// On set la variable
 		// $vars->name = $name;
@@ -91,7 +103,7 @@ class Profile extends Controller {
 	public function Password_remember($name = ''){
 		
 		// Définition du modèle à utiliser
-		$vars = $this->model('Profile_model');
+		$mode = $this->model('Profile_model');
 
 		// On set la variable
 		// $vars->name = $name;
@@ -104,7 +116,7 @@ class Profile extends Controller {
 	public function Password_reset($name = ''){
 		
 		// Définition du modèle à utiliser
-		$vars = $this->model('Profile_model');
+		$mode = $this->model('Profile_model');
 
 		// On set la variable
 		// $vars->name = $name;

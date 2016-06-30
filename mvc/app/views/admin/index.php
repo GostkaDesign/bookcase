@@ -1,5 +1,3 @@
-<?php include_once '/../inc/header.php'; ?>
-
 <?php
 
 	// Restrict to logged
@@ -14,13 +12,3 @@
 
 ?>
 
-    <div class="container">
-
-		<h1>INDEX ADMIN</h1>
-
-
-    </div>
-
-<?php
-	include_once '/../inc/footer.php';
-?>

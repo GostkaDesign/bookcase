@@ -10,7 +10,7 @@ $auth->connectFromCookie($db);
 
 if ($auth->user()) {
 
-	AppDB::redirect("../account/");
+	AppDB::redirect(WEBROOT."profile/account/");
 
 }
 
@@ -19,6 +19,8 @@ if ($auth->user()) {
 
 <div class="container">
 	<h1>Login</h1>
+
+	
 
 	<?php 
 
@@ -31,12 +33,12 @@ if ($auth->user()) {
 			if ($user) {
 
 				$session->setFlash("success", "Welcome, you're now connected");
-				AppDB::redirect("../account/$user->username");
+				AppDB::redirect(WEBROOT."profile/account/$user->username");
 				
 			}
 			else {
 				$session->setFlash("danger", "Login or password invalid");
-				AppDB::redirect("../login/");
+				AppDB::redirect(WEBROOT."profile/login/");
 			}
 
 		}
@@ -65,7 +67,7 @@ if ($auth->user()) {
 
 		<br>
 		<br>
-		<a href="../password_remember/">I forgot my password</a>
+		<a href="<?=WEBROOT;?>profile/password_remember/">I forgot my password</a>
 
 	</form>
 

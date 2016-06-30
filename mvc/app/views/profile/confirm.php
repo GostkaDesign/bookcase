@@ -14,14 +14,14 @@
 
     Session::getInstance()->setFlash("success", "Votre compte a bien été validé.");
 
-    AppDB::redirect("../account/");
+    AppDB::redirect(WEBROOT."profile/account/");
 
 
   }else{
 
     Session::getInstance()->setFlash("danger", "Ce token n'est plus valide");
 
-    AppDB::redirect("../login/");
+    AppDB::redirect(WEBROOT."profile/login/");
       	// die('pas ok!');
   }
 

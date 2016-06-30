@@ -1,5 +1,6 @@
 <?php
 
+// namespace App\Core;
 
 class Auth {
 
@@ -11,6 +12,7 @@ class Auth {
 
     private $session;
 
+
     public function __construct($session, $options = []){
 
         $this->options = array_merge($this->options, $options);
@@ -19,6 +21,7 @@ class Auth {
 
     }
 
+    // Hash du password
     public function hashPassword ($password){
 
         $conf = array('cost' => 11);
@@ -26,6 +29,7 @@ class Auth {
         return $password;
     }
 
+    // Inscription sur le site
     public function register ($db, $username, $password, $email) {
 
         $password = $this->hashPassword($password);
@@ -65,6 +69,7 @@ class Auth {
 
     }
 
+    // Confirmation de l'inscription
     public function confirm ($db, $user_id, $token){
 
 
@@ -100,6 +105,8 @@ class Auth {
 
     //     }
     // }
+    
+    // Retourn les slugs de permissions
     private function getSlugs($db){
 
         $slugs = $db->query('SELECT slug,level FROM roles')->fetchAll();
@@ -118,8 +125,9 @@ class Auth {
     }
 
 
-    /*Autorise des rangs a acceder à une page*/
+    // Autorise des rangs a acceder à une page
     public function restrict($db, $slug = "member"){
+
 
         // On test si l'utilisateur est connecté
         if (!$this->session->read('auth')) {
@@ -127,26 +135,28 @@ class Auth {
             $this->session->setFlash('danger', $this->options['restriction_msg']);
 
             //Redirection vers la page profile
-            AppDB::redirect("../../profile/login/");
-
-
+            AppDB::redirect(WEBROOT."profile/login/");
+            
             exit();
         }
 
         // On va vérifier tous les roles disponnibles
         $roles = $this->getSlugs($db);
+        // var_dump($roles);
+
         
         if (!isset($roles[$slug]->slug)) {
-            $this->session->setFlash('danger', "Type de profil non connu ou verifier la syntax pour $slug");
+            $this->session->setFlash('danger', "Profile type unknow, please check the syntax for <b>$slug</b>");
         }
         else {
+
             if ($this->session->read('auth')->level >= $roles[$slug]->level){
-                $this->session->setFlash('success', "Vous avez les droits necessaires");
+                // $this->session->setFlash('success', "Vous avez les droits necessaires");
             }
             else {
                 $this->session->setFlash('danger', $this->options['restriction_lvl_msg']);
                 //Redirection vers la page profile
-                // AppDB::redirect("../login/");
+                AppDB::redirect(WEBROOT."profile/account/");
                 exit();
             }
         }
@@ -167,13 +177,17 @@ class Auth {
 
     //connexion de l'utilisateur 
     public function connect($user){
-
+        
+        // session_regenerate_id();
         $this->session->write('auth', $user);
+        // die (var_dump ($user));
 
     }
 
+
     // connexion depuis un cookie + rafraichissement des cookies
     public function connectFromCookie($db){
+        
 
         if (isset($_COOKIE['remember']) && !$this->user()) {
 
@@ -219,7 +233,7 @@ class Auth {
     private function user_exist($db, $username, $password){
 
         // $user = $db->query('SELECT * FROM users WHERE (username = :username OR email = :username) AND confirmed_at IS NOT NULL', ['username' => $username])->fetch();
-        $user = $db->query('SELECT * FROM users LEFT JOIN roles ON users.role_id=roles.id WHERE (username = :username OR email = :username) AND confirmed_at IS NOT NULL', ['username' => $username])->fetch();
+        $user = $db->query('SELECT * FROM users LEFT JOIN roles ON users.role_id=roles.level WHERE (username = :username OR email = :username) AND confirmed_at IS NOT NULL', ['username' => $username])->fetch();
 
         return $user;
 
@@ -229,7 +243,6 @@ class Auth {
     public function login ($db, $username, $password, $remember = false){
 
         $user = $this->user_exist($db, $username, $password);
-
         if ($user){
 
             if (password_verify($password, $user->password)) {
@@ -248,6 +261,7 @@ class Auth {
 
                     // cookie qui tiendra 7 jours
                     setcookie('remember', $user->id . '==' . $remember_token . sha1($user->id . 'BookCase'), time() + 60 * 60 * 24 * 7);
+
 
                 }
 
@@ -320,13 +334,6 @@ class Auth {
         $db->query('UPDATE users SET password = ?, reset_at = NOW() WHERE id = ?', [$password, $user_id]);
 
     }
-
-    // public function update($db, $user_id, $label, $value){
-
-    //     // Update du password        
-    //     $db->query('UPDATE users SET $label = ? WHERE id = ?', [$password, $value]);
-
-    // }
     
 
 

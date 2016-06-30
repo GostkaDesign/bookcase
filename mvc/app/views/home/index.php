@@ -1,13 +1,14 @@
 <?php
 	// echo $data['name'];
-	echo "<br>";
-	var_dump($data);
-	// echo $data->qqchose;
-	// echo "test-----".$data["qqchose"];
+	echo "<hr>";
+	echo "VUE HOME";
+	echo "<hr>";
 ?>
 
 <?php
 
-var_dump(get_defined_vars());
-var_dump($data);
+echo $data->test;
+
+// var_dump(get_defined_vars());
+// var_dump($data);
 ?>

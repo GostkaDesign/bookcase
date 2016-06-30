@@ -4,8 +4,8 @@ class Home_model
 {
 	// public $name;
 	
-	function __construct()
-	{
+	function __construct(){
+		
 		echo '<br>Bonjour je suis la class HOME';
 		// echo '<br>user : ' . $vars->name . '<br>';
 		// echo $content_for_layout;

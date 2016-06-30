@@ -1,6 +1,6 @@
 <?php 
 
-namespace Bookcase\Form;
+namespace Form;
 
 /**
   * summary

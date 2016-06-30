@@ -6,6 +6,6 @@
 	Session::getInstance()->setFlash('success', "Vous êtes maintenant déconnecté");
 	// $_SESSION['flash']['success'] = "Vous êtes maintenant déconnecté";
 	// 
-	AppDB::redirect('../login/');
+	AppDB::redirect(WEBROOT."profile/login/");
 
 ?>
