@@ -1,51 +1,35 @@
 <?php
+use \Core\Controller\Controller;
 
-// namespace App\Controllers;
 
-// use \App\Core\Controller;
-/**
-* 
-*/
 class Profile extends Controller {
 	
 	public function Index($name = ''){
 		
 		// Définition du modèle à utiliser
-		$mode = $this->model('Profile_model');
-
-		// On set la variable
-		// $vars->name = $name;
-
-		// Définition de la vue à utiliser
-		$this->view('profile/index', ['name' => $vars->name]);
+		$model = $this->model('Profile_model');
+		
+		$this->view('profile/index');
 
 	}
 
-	public function Login($name = ''){
+	public function Login(){
 		
 		// Définition du modèle à utiliser
 		$model = $this->model('Profile_model');
 		$this->meta_title('dTitle de la page profil');
+		$name ="Nom utilisateur";
 
-		// On set la variable
-		// $vars->name = $name;
-
-		// Définition de la vue à utiliser
-		$this->view('profile/login', ['name' => $vars->name]);
+		$this->view('profile/login', compact('name'));
 
 	}
 
 	public function Register($name = ''){
 		
 		// Définition du modèle à utiliser
-		$mode = $this->model('Profile_model');
+		$model = $this->model('Profile_model');
 		
-		// On set la variable
-		// $vars->name = $name;
-		var_dump($vars);
-
-		// Définition de la vue à utiliser
-		$this->view('profile/register', ['name' => $vars->name]);
+		$this->view('profile/register');
 
 		// Définition du layout à utiliser
 		// $this->layout('test');
@@ -55,34 +39,25 @@ class Profile extends Controller {
 	public function Confirm($name = ''){
 		
 		// Définition du modèle à utiliser
-		$mode = $this->model('Profile_model');
+		$model = $this->model('Profile_model');
+		
 
-		// On set la variable
-		// $vars->name = $name;
-		var_dump($vars);
-
-		// Définition de la vue à utiliser
-		$this->view('profile/confirm', ['name' => $vars->name]);
+		
+		$this->view('profile/confirm');
 	}
 
 
-	public function Account($name = ''){
+	public function Account(){
 		
 		// Définition du modèle à utiliser
 		$model = $this->model('Profile_model');
-		$this->meta_title('dTitle de la page profil');
-
-		$name = $model->name;
-		
+		$this->meta_title('dTitle de ladsd page profil');
 		
 		// $this->updateSessionUser($user);
-		
-		// On set la variable
-		// $vars->name = $name;
-		
+
 		// var_dump($vars);
 
-		// Définition de la vue à utiliser
+		
 		$this->view('profile/account', compact('name'));
 	}
 
@@ -90,39 +65,26 @@ class Profile extends Controller {
 	public function Logout($name = ''){
 		
 		// Définition du modèle à utiliser
-		$mode = $this->model('Profile_model');
-
-		// On set la variable
-		// $vars->name = $name;
-
-		// Définition de la vue à utiliser
-		$this->view('profile/logout', ['name' => $vars->name]);
+		$model = $this->model('Profile_model');
+		$this->view('profile/logout');
 	}
 
 
 	public function Password_remember($name = ''){
 		
 		// Définition du modèle à utiliser
-		$mode = $this->model('Profile_model');
+		$model = $this->model('Profile_model');
 
-		// On set la variable
-		// $vars->name = $name;
-
-		// Définition de la vue à utiliser
-		$this->view('profile/password_remember', ['name' => $vars->name]);
+		$this->view('profile/password_remember');
 	}
 
 
 	public function Password_reset($name = ''){
 		
 		// Définition du modèle à utiliser
-		$mode = $this->model('Profile_model');
+		$model = $this->model('Profile_model');
 
-		// On set la variable
-		// $vars->name = $name;
-
-		// Définition de la vue à utiliser
-		$this->view('profile/password_reset', ['name' => $vars->name]);
+		$this->view('profile/password_reset');
 	}
 
 	

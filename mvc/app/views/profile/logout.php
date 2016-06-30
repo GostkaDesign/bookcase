@@ -1,5 +1,8 @@
 <?php
 	
+	use \Core\AppDB;
+	use \Core\Session;
+	
 	AppDB::getAuth()->logout();
 	echo 'Vous ete smaintenant déconnecté';
 

@@ -6,7 +6,7 @@
 
 <?php 
 	echo "<hr>";
-	echo "<span class='label label-success'>LAYOUT TEST HOME</span>";
+	echo "<span class='label label-success'>LAYOUT ADMIN USERS</span>";
 	echo "<hr>";
 
 	echo $content_for_layout;

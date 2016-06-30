@@ -1,7 +1,6 @@
 <?php
-/**
-* 
-*/
+use \Core\Controller\Controller;
+
 class Contact  extends Controller{
 	
 	public function index(){

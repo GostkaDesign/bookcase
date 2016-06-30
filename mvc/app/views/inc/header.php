@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+
+use \Core\Session;
+// $session = Session::getInstance();
+
+?>
 
 <html lang="fr">
   <head>
@@ -20,7 +26,7 @@
   <body>
     
     <?php
-    // $session = Session::getInstance();
+    
     ?>
     <nav class="navbar navbar-inverse">
       <div class="container">

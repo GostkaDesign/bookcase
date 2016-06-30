@@ -1,6 +1,10 @@
 <?php include_once '/../inc/header.php'; ?>
 
 <?php
+use \Core\AppDB;
+use \Core\Session;
+use \Core\Auth;
+use \Core\Form\Validator;
 
 $auth = AppDB::getAuth();
 

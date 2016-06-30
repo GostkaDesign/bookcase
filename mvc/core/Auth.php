@@ -1,7 +1,8 @@
 <?php
 
-// namespace App\Core;
-
+namespace Core;
+use \Core\Random;
+// 
 class Auth {
 
     private $options = [

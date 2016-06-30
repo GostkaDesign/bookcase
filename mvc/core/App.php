@@ -1,6 +1,7 @@
 <?php
 
-// namespace App\Core;
+namespace Core;
+
 
 class App
 {
@@ -16,26 +17,26 @@ class App
 
 	function __construct()
 	{
-
 		// Dispatcher
 		$url = $this->parseUrl();
 		
-		if (file_exists('../app/controllers/' . $url[0] . '.php'))
+		if (file_exists(WEBAPP.'/controllers/' . $url[0] . '.php'))
 		{
 			$this->controller = $url[0];
 			unset($url[0]);
 		}
-
-		require_once '../app/controllers/' . $this->controller . '.php';
+		require_once WEBAPP.'/controllers/' . $this->controller . '.php';
 
 
 		// Instanciation du controller
 		$this->controller = new $this->controller;
+		var_dump($this->controller);
+
 
 		if (isset($url[1]))
 		{
 			if (method_exists($this->controller, $url[1]))
-			{
+			{	
 				$this->method = $url[1];
 				unset($url[1]);
 			}

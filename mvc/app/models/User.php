@@ -1,4 +1,5 @@
 <?php
+use \Core\Session;
 
 class User
 {

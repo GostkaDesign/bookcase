@@ -1,9 +1,10 @@
 <?php 
 
-namespace Database;
+namespace Core\Database;
 
 use \PDO;
-use \Config\conf;
+use \Core\Database\Database;
+use \Core\Config\conf;
 
 /**
 * 
@@ -25,8 +26,6 @@ class MysqlDatabase extends Database {
     public function __construct($db_name, $db_user = 'root', $db_pass = '', $db_host = 'localhost')
     {
         
-        echo "__NAMESPACE__ : ".__NAMESPACE__."<br>";
-
         $this->db_name = $db_name;
 
         $this->db_user = $db_user;

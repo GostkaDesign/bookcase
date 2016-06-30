@@ -1,7 +1,8 @@
 <?php 
 
-// namespace App\Core;
-// use \App\Core\Database\Database;
+namespace Core;
+use \Core\Database\MysqlDatabase;
+use \Core\Config\Conf;
 
 class AppDB {
 
@@ -17,9 +18,9 @@ class AppDB {
 
     	if (!self::$db) {
     		
-            $conf = Config\Conf::$databases[self::$conf_DB_Name];
+            $conf = Conf::$databases[self::$conf_DB_Name];
 
-    		self::$db = new Database\MysqlDatabase($conf["database"], $conf["login"], $conf["password"], $conf["host"]);
+    		self::$db = new MysqlDatabase($conf["database"], $conf["login"], $conf["password"], $conf["host"]);
            
     	}
     	return self::$db;

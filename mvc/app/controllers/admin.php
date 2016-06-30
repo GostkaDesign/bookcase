@@ -1,11 +1,14 @@
 <?php
+use \Core\Controller\Controller;
+use \Core\AppDB;
+
 
 class Admin extends Controller {
 	
 	public function Index(){
 		
 		// Définition du modèle à utiliser
-		$data = $this->model('Admin_model');
+		$model = $this->model('Admin_model');
 		// On set les variables
 		// $data->name = $name;
 
@@ -30,7 +33,7 @@ class Admin extends Controller {
 		
 				 
 		$model = $this->model('User', $db);
-		$this->layout('admin_users');
+		// $this->layout('admin_users');
 		
 		
 		$category = "mes category";

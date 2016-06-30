@@ -1,4 +1,7 @@
-<?php include_once '/../inc/header.php'; ?>  
+<?php
+  use \Core\Session;
+  use \Core\AppDB;
+?>
 
 <div class="container">
 
@@ -29,6 +32,3 @@
 
 </div>
 
-<?php
-include_once '/../inc/footer.php';
-?>  

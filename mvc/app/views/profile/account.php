@@ -1,5 +1,6 @@
-<?php include_once '/../inc/header.php'; ?>
 <?php
+	use \Core\Session;
+	use \Core\AppDB;
 
 	// Restrict to logged
 	$auth = AppDB::getAuth();
@@ -10,9 +11,10 @@
 	$auth->restrict($db, 'member');
 
 	$session = Session::getInstance();
-
 	//update de la session
 	// $session->updateSessionUser($auth);
+
+
 
 	// Pour changer le mot de passe
 if (!empty($_POST)) {
@@ -153,9 +155,6 @@ if (!empty($_POST)) {
 		</div>
 	</div>
 
-	
 </div>
 
-<?php
-include_once '/../inc/footer.php';
-?>  
+ 

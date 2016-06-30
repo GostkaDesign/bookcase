@@ -1,5 +1,8 @@
 <?php
 
+use \Core\Session;
+use \Core\AppDB;
+
 	// Restrict to logged
 	$auth = AppDB::getAuth();
 

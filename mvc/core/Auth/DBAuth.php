@@ -7,6 +7,7 @@
 // namespace Core\Auth;
 
 // use Core\Database\Database;
+// use Core\Str;
 
 // class DBAuth {
     

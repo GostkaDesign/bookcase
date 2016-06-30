@@ -1,9 +1,9 @@
 <?php
 
-// namespace App\Core;
+namespace Core\Controller;
 
-class Controller
-{
+
+class Controller{
 
 	// private $vars = [];
 	public $layout = "default";
@@ -13,8 +13,10 @@ class Controller
 	//Appel du model
 	// $dependance sert à passer des param au model comme la $db
 	// Permet d'eviter de lier le code dans les classes
+	// 
+	
 	public function model ($model, $dependance = null){
-		require_once '../app/models/' . $model . '.php';
+		require_once WEBAPP.'/models/' . $model . '.php';
 		return new $model($dependance);
 
 	}
@@ -30,13 +32,13 @@ class Controller
 		$data['meta_title'] = $this->meta_title;
 		ob_start();
 		extract($data);
-		// $meta_title = $this->meta_title;
-		require_once '../app/views/' . $view . '.php';
+		require_once WEBAPP.'/views/' . $view . '.php';
 		$content_for_layout = ob_get_clean();
 
 
 		if ( isset($this->layout) ) {
-			require_once '../app/views/layouts/' . $this->layout . '.php';
+			require_once WEBAPP.'/views/layouts/' . $this->layout . '.php';
+
 		}
 
 	}
