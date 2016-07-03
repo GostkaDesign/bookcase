@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use Core\Entity\Entity;
+use \Core\Entity\Entity;
 
 /**
  * summary

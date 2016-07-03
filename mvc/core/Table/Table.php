@@ -1,6 +1,6 @@
 <?php 
 
-namespace Table;
+namespace Core\Table;
 /**
  * Class permetant d'appeler dynamiquement une table
  */

@@ -3,6 +3,7 @@ use \Core\Controller\Controller;
 use \Core\AppDB;
 
 
+
 class Admin extends Controller {
 	
 	public function Index(){
@@ -32,9 +33,11 @@ class Admin extends Controller {
 		// $this->view('admin/users', $data);
 		
 				 
-		$model = $this->model('User', $db);
+		$model = $this->model('User', ['db'=>$db, 'test'=>'putain de merde']);
 		// $this->layout('admin_users');
-		
+		// 
+		// $all_users= AppDB::getTable('Users')->all();
+		// var_dump($all_users);
 		
 		$category = "mes category";
 		$users = $model->get_users_list();

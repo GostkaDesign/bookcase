@@ -30,8 +30,7 @@ class App
 
 		// Instanciation du controller
 		$this->controller = new $this->controller;
-		var_dump($this->controller);
-
+		$this->controller->db ="ma super db";
 
 		if (isset($url[1]))
 		{

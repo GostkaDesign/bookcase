@@ -54,8 +54,9 @@ use \Core\AppDB;
  	// echo "</ul>";
  	
  	 
- 	echo $users;
-	echo $category;
+ 	// var_dump(@$all_users);
+ 	echo @$users;
+	echo @$category;
 
 
 

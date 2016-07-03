@@ -2,21 +2,30 @@
 
 namespace Core\Controller;
 
+use \App\Models\User;
+use \Core\Model\Model;
+
+
 
 class Controller{
 
+	private $db;
 	// private $vars = [];
 	public $layout = "default";
 	private $data = array();
 	private $meta_title="BookCase";
+	private $meta_description="Description";
+	private $meta_author="Gostka Design";
 
 	//Appel du model
 	// $dependance sert à passer des param au model comme la $db
 	// Permet d'eviter de lier le code dans les classes
 	// 
 	
-	public function model ($model, $dependance = null){
+	public function model ($model, $dependance = []){
+		
 		require_once WEBAPP.'/models/' . $model . '.php';
+
 		return new $model($dependance);
 
 	}
@@ -30,6 +39,8 @@ class Controller{
 		// permet de separer les entrees du tableau en var toutes simples
 		//
 		$data['meta_title'] = $this->meta_title;
+		$data['meta_description'] = $this->meta_description;
+		$data['meta_author'] = $this->meta_author;
 		ob_start();
 		extract($data);
 		require_once WEBAPP.'/views/' . $view . '.php';
@@ -37,6 +48,7 @@ class Controller{
 
 
 		if ( isset($this->layout) ) {
+			echo WEBAPP.'/views/layouts/' . $this->layout . '.php';
 			require_once WEBAPP.'/views/layouts/' . $this->layout . '.php';
 
 		}
@@ -62,6 +74,38 @@ class Controller{
 		else {
 
 			return $this->meta_title;
+
+		}
+
+	}
+
+	public function meta_description($meta_description){
+
+		if (isset($meta_description)){
+
+			$this->meta_description = $meta_description;
+			return $this->meta_description;
+
+		}
+		else {
+
+			return $this->meta_description;
+
+		}
+
+	}
+
+	public function meta_author($meta_author){
+
+		if (isset($meta_author)){
+
+			$this->meta_author = $meta_author;
+			return $this->meta_author;
+
+		}
+		else {
+
+			return $this->meta_author;
 
 		}
 

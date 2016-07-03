@@ -1,11 +1,13 @@
 <?php
-use \Core\Session;
+// namespace App\models;
 
-class User
-{
+use \Core\Session;
+use \Core\Model\Model;
+
+class User extends Model {
 	
 
-    protected $db;
+    // protected $db;
     private $username;
     private $email;
     private $last_name;
@@ -31,10 +33,9 @@ class User
     reset_at            : datetime
     remember_token      : varchar
      */	
-	function __construct($db)
-	{
-		echo '<br><span class="label label-success">MODEL USER</span><br>';
-        $this->db = $db;        
+	function __construct($dependances)
+    {
+        parent::__construct($dependances);    
 	}
 
     static $instance; // singleton pattern

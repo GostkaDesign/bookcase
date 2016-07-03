@@ -1,8 +1,9 @@
 <?php 
 
 namespace Core;
-use \Core\Database\MysqlDatabase;
 use \Core\Config\Conf;
+use \Core\Database\MysqlDatabase;
+use \Core\Table\Table;
 
 class AppDB {
 
@@ -54,7 +55,7 @@ class AppDB {
     // sappel de cette facon var_dump(AppDB::getTable('Users'));
     public static function getTable($tableName){
         
-        $class_name = 'Table\\' . ucfirst($tableName) . 'Table';
+        $class_name = '\\App\\Table\\' . ucfirst($tableName) . 'Table';
 
         return new $class_name(self::$db);
 
