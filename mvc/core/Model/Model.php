@@ -8,19 +8,24 @@ class Model {
     /**
      * summary
     */
-  
+    protected $db;
 
-    public function __construct($dependances = null)
-    {
-    	
-        if (isset($dependances['db'])){
-            $this->db = $dependances['db'];
-        }
-        echo __CLASS__;
+    public function __construct($dependances = null){
+    	if (isset($dependances)){
+
+                extract($dependances);
+
+                if (isset($db)){
+                    $this->db = $db;
+                }
+
+            }
+        
+        // echo __CLASS__."<br>";
     }
 
     public function delete1 (){
-		echo 'fdsf';    	
+		echo 'fdsf'; 	
     }
 }
 

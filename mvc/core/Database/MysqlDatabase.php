@@ -18,8 +18,6 @@ class MysqlDatabase extends Database {
 
     private $db_host;
 
-    private $conf;
-
     private $pdo;
 
 
@@ -37,7 +35,7 @@ class MysqlDatabase extends Database {
         try{
             if ($this->pdo === null) {
 
-                $this->pdo = new PDO ("mysql:dbname=$db_name;host=$db_host", $db_user, $db_pass);
+                $this->pdo = new PDO ("mysql:dbname=$this->db_name;host=$this->db_host", $this->db_user);
 
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

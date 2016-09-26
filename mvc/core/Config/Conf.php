@@ -5,7 +5,7 @@ namespace Core\Config;
 class Conf
 {
 
-  static $debug = 2;
+  static $debug = 1;
 
   static $databases = array(
 

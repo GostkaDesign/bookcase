@@ -32,11 +32,12 @@ class User extends Model {
     reset_token         : varchar
     reset_at            : datetime
     remember_token      : varchar
-     */	
-	function __construct($dependances)
-    {
-        parent::__construct($dependances);    
-	}
+     */
+    	
+	// function __construct($dependances)
+ //    {
+ //        parent::__construct($dependances);    
+	// }
 
     static $instance; // singleton pattern
 
@@ -132,10 +133,11 @@ class User extends Model {
     public function get_users_list(){
 		$users = $this->get_users();
 
-    	$user_list = "<div class='list-group' >";
+    	$user_list = "<div class='row'>
+                        <div class='list-group' >";
     	foreach ($users as $user) {
 
-    		$user_list .= "<div class='col-lg-6'>
+    		$user_list .= "<div class='col-lg-3'>
     						<a href='#' class='list-group-item ' >";
     		$user_list .= "<h4 class='list-group-item-heading'><b>$user->username</b> [$user->id]</h4>";
 			$user_list .= "<p class='list-group-item-text'>";
@@ -152,7 +154,8 @@ class User extends Model {
 
     	}
 
-    	$user_list .= "</div>";
+    	$user_list .= "</div>
+                    </div>";
     	return $user_list;	
 
     }
@@ -172,16 +175,13 @@ class User extends Model {
         return true;
     }
 
-    // public function update($db, $user_id, $label, $value){
+    public function update($username, $label, $value){
 
-    //     // Update du password        
-    //     $db->query('UPDATE users SET $label = ? WHERE id = ?', [$label, $value]);
+        // Update du password        
+        $this->db->query('UPDATE users SET $label = ? WHERE username = ?', [$value, $username]);
 
-    // }
-    // 
-    
-    public function update($username) {
     }
+    
 
     public function delete($user) {
         $this->$db->query('DELETE FROM users WHERE user = ', [$user]);

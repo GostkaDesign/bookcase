@@ -30,7 +30,8 @@ class App
 
 		// Instanciation du controller
 		$this->controller = new $this->controller;
-		$this->controller->db ="ma super db";
+		// Passer la db aux controllers
+		$this->controller->db = AppDB::getDatabase();
 
 		if (isset($url[1]))
 		{

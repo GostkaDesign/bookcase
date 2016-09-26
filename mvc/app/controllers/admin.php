@@ -20,8 +20,6 @@ class Admin extends Controller {
 
 	public function Users(){
 		
-		$db = AppDB::getDatabase();
-
 		// Définition du modèle à utiliser
 		// $data = $this->model('User', $db);
 		// $data->layout = $this->layout('admin_users');
@@ -33,7 +31,7 @@ class Admin extends Controller {
 		// $this->view('admin/users', $data);
 		
 				 
-		$model = $this->model('User', ['db'=>$db, 'test'=>'putain de merde']);
+		$model = $this->model('User', ['db'=>$this->db, 'test'=>'putain de merde']);
 		// $this->layout('admin_users');
 		// 
 		// $all_users= AppDB::getTable('Users')->all();

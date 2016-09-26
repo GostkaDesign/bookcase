@@ -38,17 +38,20 @@ class Controller{
 		// 
 		// permet de separer les entrees du tableau en var toutes simples
 		//
-		$data['meta_title'] = $this->meta_title;
-		$data['meta_description'] = $this->meta_description;
-		$data['meta_author'] = $this->meta_author;
+		//
 		ob_start();
 		extract($data);
+		$meta_title = $this->meta_title;
+		$meta_description = $this->meta_description;
+		$meta_author = $this->meta_author;
+		
+		
 		require_once WEBAPP.'/views/' . $view . '.php';
 		$content_for_layout = ob_get_clean();
 
 
 		if ( isset($this->layout) ) {
-			echo WEBAPP.'/views/layouts/' . $this->layout . '.php';
+			// echo WEBAPP.'/views/layouts/' . $this->layout . '.php';
 			require_once WEBAPP.'/views/layouts/' . $this->layout . '.php';
 
 		}

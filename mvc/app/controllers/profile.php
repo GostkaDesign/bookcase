@@ -1,5 +1,6 @@
 <?php
 use \Core\Controller\Controller;
+use \Core\AppDB;
 
 
 class Profile extends Controller {
@@ -18,9 +19,9 @@ class Profile extends Controller {
 		// Définition du modèle à utiliser
 		$model = $this->model('Profile_model');
 		$this->meta_title('dTitle de la page profil');
-		$name ="Nom utilisateur";
+		// $name ="Nom utilisateur";
 
-		$this->view('profile/login', compact('name'));
+		$this->view('profile/login');
 
 	}
 
@@ -48,10 +49,10 @@ class Profile extends Controller {
 
 
 	public function Account(){
-		
 		// Définition du modèle à utiliser
 		$model = $this->model('Profile_model');
-		$this->meta_title('dTitle de ladsd page profil');
+		$model = $this->model('user');
+		$this->meta_title('Title de la page profil');
 		
 		// $this->updateSessionUser($user);
 
