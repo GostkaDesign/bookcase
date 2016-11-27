@@ -19,6 +19,7 @@ class Profile extends Controller {
 		// Définition du modèle à utiliser
 		$model = $this->model('Profile_model');
 		$this->meta_title('dTitle de la page profil');
+		$this->meta_title('BookCase - Login');
 		// $name ="Nom utilisateur";
 
 		$this->view('profile/login');
@@ -29,6 +30,7 @@ class Profile extends Controller {
 		
 		// Définition du modèle à utiliser
 		$model = $this->model('Profile_model');
+		$this->meta_title('BookCase - Register');
 		
 		$this->view('profile/register');
 
@@ -53,6 +55,7 @@ class Profile extends Controller {
 		$model = $this->model('Profile_model');
 		$model = $this->model('user');
 		$this->meta_title('Title de la page profil');
+		$this->meta_title('BookCase - Account');
 		
 		// $this->updateSessionUser($user);
 
